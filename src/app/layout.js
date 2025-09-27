@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
           </div>
           <div className="w-full h-full">
             <Navbar />
-            <div className="lg:mt-6 mt-4">{children}</div>
+            <div className="lg:mt-6 mt-4 h-full w-full">{children}</div>
           </div>
         </div>
       </body>

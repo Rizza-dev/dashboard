@@ -3,16 +3,16 @@ import { products } from "@/assets/assets";
 import { Edit, Trash } from "lucide-react";
 const ProductsList = () => {
   return (
-    <div className="max-h-64 overflow-y-auto">
+    <div className="max-h-64 overflow-y-auto mt-4">
       <table className="w-full">
-        <thead className="sticky top-0 bg-background">
+        <thead className="sticky top-0 border-b border-strok bg-bg-2">
           <tr className="border-b border-strok text-xs md:text-base">
-            <th className="p-2 ">کد</th>
-            <th className="p-2 ">نام</th>
-            <th className="p-2 ">تعداد</th>
-            <th className="p-2 ">توضیحات</th>
-            <th className="p-2 ">قیمت</th>
-            <th className="p-2 ">ویرایش</th>
+            <th className="pb-4 ">کد</th>
+            <th className="pb-4 ">نام</th>
+            <th className="pb-4 ">تعداد</th>
+            <th className="pb-4 ">توضیحات</th>
+            <th className="pb-4 ">قیمت</th>
+            <th className="pb-4 ">ویرایش</th>
           </tr>
         </thead>
         <tbody>
