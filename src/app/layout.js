@@ -14,10 +14,10 @@ export default function RootLayout({ children }) {
     <html lang="FA-IR" dir="rtl">
       <body className={`${artin.className} `}>
         <div className="w-full h-full flex md:gap-4  py-4  px-4">
-          <div className="w-fit h-[calc(100vh-80px)]">
+          <div className="w-fit h-full">
             <SideBar />
           </div>
-          <div className="w-full h-[calc(100vh-80px)]  ">
+          <div className="w-full h-full">
             <Navbar />
             <div className="lg:mt-6 mt-4">{children}</div>
           </div>

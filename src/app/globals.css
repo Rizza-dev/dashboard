@@ -36,3 +36,19 @@ html {
  h1 , h2 , h3 , h4 , h5 , h6 {
   color: var(--foreground);
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-2);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--strok);  /* همون آبی Tailwind: blue-600 */
+  border-radius: 8px;
+}
+

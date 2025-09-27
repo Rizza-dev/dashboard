@@ -1,8 +1,6 @@
 "use client";
 import useMenuState from "@/store/MenuState";
 import {
-  ArrowLeft,
-  ArrowRight,
   LayoutDashboard,
   LogOut,
   PackageSearch,
@@ -12,11 +10,13 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const SideBar = () => {
   const { isOpen, onClose } = useMenuState();
-
+  const router = usePathname();
+  const path = router.split("/")[1];
+  
   return (
     <div>
       {isOpen ? (
@@ -33,18 +33,18 @@ const SideBar = () => {
         <ul className="flex flex-col items-start h-full justify-start  gap-8 md:gap-10 ">
           <li
             onClick={onClose}
-            className="cursor-pointer md:hidden flex items-center justify-center gap-4"
+            className="cursor-pointer md:hidden flex items-center justify-center gap-2"
           >
-            <button className="bg-strok px-3 py-2 md:p-4 rounded-full cursor-pointer">
+            <button className={`bg-strok px-3 py-2 md:p-4 rounded-full cursor-pointer`}>
               <X className="w-4 md:w-6" />
             </button>
             <p className={`text-xl`}>بستن منو</p>
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
-            <Link className="bg-strok px-3 py-2 md:p-4 rounded-full " href="/">
+            <Link className={`bg-strok px-3 py-2 md:p-4 rounded-full ${path === '' && 'border border-foreground'}`} href="/">
               <LayoutDashboard className="w-4 md:w-6" />
             </Link>
             <Link href="/" className={`text-xl`}>
@@ -53,10 +53,10 @@ const SideBar = () => {
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className="bg-strok px-3 py-2 md:p-4 rounded-[32px]"
+              className={`bg-strok px-3 py-2 md:p-4 rounded-[32px] ${path === 'products' && 'border border-foreground'}`}
               href="/products"
             >
               <PackageSearch className="w-4 md:w-6" />
@@ -67,10 +67,10 @@ const SideBar = () => {
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className="bg-strok px-3 py-2 md:p-4 rounded-[32px]"
+              className={` ${path === 'orders' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/orders"
             >
               <Truck className="w-4 md:w-6" />
@@ -81,10 +81,10 @@ const SideBar = () => {
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className="bg-strok px-3 py-2 md:p-4 rounded-[32px]"
+              className={`${path === 'users' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/users"
             >
               <Users className="w-4 md:w-6" />
@@ -95,10 +95,10 @@ const SideBar = () => {
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className="bg-strok px-3 py-2 md:p-4 rounded-[32px]"
+              className={`${path === 'settings' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/settings"
             >
               <Settings className="w-4 md:w-6" />
@@ -109,7 +109,7 @@ const SideBar = () => {
           </li>
           <li
             onClick={onClose}
-            className="cursor-pointer flex items-center justify-center gap-4 "
+            className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link className="bg-strok px-3 py-2 md:p-4 rounded-[32px]" href="/">
               <LogOut className="w-4 md:w-6" />
