@@ -13,11 +13,11 @@ const page = () => {
   return (
     <div className="flex w-full gap-6 flex-col h-full mb-10">
       {/* ===================top======================== */}
-      <div className="flex justify-between items-center gap-4 w-full max-md:h-[700px] h-full flex-col lg:flex-row">
+      <div className="flex justify-between items-center gap-4 w-full max-md:h-[700px] h-full flex-col lg:flex-row ">
         {/* =================== Sales Count======================= */}
         <SalesCount />
         {/* ====================Chart===================== */}
-        <div className="w-full border border-strok rounded-2xl p-6 flex-2 h-[500px] max-md:h-[300px] relative flex items-center justify-center flex-col">
+        <div className="w-full bg-bg-2 border border-strok rounded-2xl p-6 flex-2 h-[500px] max-md:h-[300px] relative flex items-center justify-center flex-col">
           <p>میزان فروش</p>
           <DashboardChart data={data} />
         </div>
@@ -25,8 +25,8 @@ const page = () => {
       {/* ====================bottom===================== */}
       <div className="flex justify-between items-start gap-4 w-full h-full flex-col lg:flex-row ">
         {/* ====================New Users===================== */}
-        <div className="w-full h-[400px] border border-strok rounded-2xl p-6 flex items-center justify-start flex-col gap-4">
-          <div className="w-full flex justify-between items-center">
+        <div className="w-full bg-bg-2 h-[400px] border border-strok rounded-2xl p-6 flex items-center justify-start flex-col gap-4">
+          <div className="w-full flex justify-between items-center ">
             <h2 className="xl:text-4xl text-2xl">کاربران جدید</h2>
             <Link
               href={"/users"}
@@ -38,7 +38,7 @@ const page = () => {
           <NewUserTable users={users} />
         </div>
         {/* ====================Best Sales===================== */}
-        <div className="w-full h-[400px] border border-strok rounded-2xl p-6 flex flex-col items-center justify-start gap-4">
+        <div className="w-full bg-bg-2 h-[400px] border border-strok rounded-2xl p-6 flex flex-col items-center justify-start gap-4">
           <div className="w-full flex justify-between items-center">
             <h2 className="xl:text-4xl text-2xl">محصولات پرفروش</h2>
             <Link

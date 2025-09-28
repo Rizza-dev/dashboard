@@ -6,7 +6,7 @@ const page = () => {
     <div className="w-full h-[80vh] ">
       <div className="w-full h-full flex flex-col bg-bg-2 border border-strok rounded-xl p-4 gap-6 max-w-screen-2xl mx-auto">
         <h1 className="text-2xl md:text-3xl">لیست سفارشات</h1>
-        <div className="w-fit text-nowrap px-6 py-4 border border-strok rounded-2xl bg-background flex items-center gap-4 lg:gap-6">
+        <div className="lg:w-fit h-[200px] text-nowrap w-full max-sm:overflow-x-auto whitespace-nowrap px-6 py-4 border border-strok rounded-2xl bg-background flex items-center justify-between  gap-4 lg:gap-6">
           <button className="px-4  py-2  rounded-lg bg-foreground text-background text-sm lg:text-base">
             همه
           </button>

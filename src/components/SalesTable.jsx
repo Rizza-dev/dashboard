@@ -4,8 +4,8 @@ const SalesTable = () => {
   return (
     <div className="max-h-64 overflow-y-auto w-full mt-4">
       <table className="w-full">
-        <thead className="sticky top-0 bg-background">
-          <tr className="border-b border-strok text-xs md:text-base">
+        <thead className="sticky top-0 bg-bg-2">
+          <tr className="border-b border-strok text-xs md:text-base text-nowrap" >
             <th className="p-2 ">کد</th>
             <th className="p-2 ">نام</th>
             <th className="p-2 ">تعداد فروش</th>

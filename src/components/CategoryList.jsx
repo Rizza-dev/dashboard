@@ -3,7 +3,7 @@ import { categorys } from "@/assets/assets";
 import { Edit, Trash } from "lucide-react";
 const CategoryList = () => {
   return (
-    <div className="max-h-64 overflow-y-auto mt-4">
+    <div className="max-h-[400px] lg:max-h-[800px] overflow-y-auto my-4">
       <table className="w-full">
         <thead className="sticky top-0 border-b border-strok bg-bg-2">
           <tr className="border-b border-strok text-xs md:text-base">

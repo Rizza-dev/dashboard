@@ -2,7 +2,7 @@ import React from "react";
 
 const SalesCount = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center h-[500px] border border-strok rounded-2xl p-6 flex-1 ">
+    <div className="w-full bg-bg-2 flex flex-col justify-center items-center h-[500px] border border-strok rounded-2xl p-6 flex-1 ">
       <div className="flex w-full items-center justify-between h-full flex-col gap-10 ">
         <div className="flex items-center justify-center gap-4 max-lg:gap-8 w-full h-full ">
           <div className="w-[140px] h-[140px] bg-foreground text-background flex flex-col gap-4 items-center justify-center  rounded-2xl">

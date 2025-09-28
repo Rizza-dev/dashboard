@@ -4,7 +4,7 @@ const NewUserTable = () => {
   return (
     <div className="max-h-64 overflow-y-auto w-full mt-4">
       <table className="w-full">
-        <thead className="sticky top-0 bg-background">
+        <thead className="sticky top-0 bg-bg-2">
           <tr className="border-b border-strok text-xs md:text-base">
             <th className="p-2 ">تاریخ</th>
             <th className="p-2 ">ساعت</th>
