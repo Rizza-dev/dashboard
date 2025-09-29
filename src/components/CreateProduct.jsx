@@ -12,7 +12,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
         !createProduct && "hidden"
       }`}
     >
-      <div className="w-full relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row">
+      <div className="w-full max-w-screen-xl relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row">
         <div className="w-full">
           <h1 className="text-2xl md:text-3xl text-center">عکس محصول</h1>
           <div className="flex flex-col items-center justify-center gap-4 w-full mt-4">

@@ -9,7 +9,7 @@ const NewCategory = ({ newCategory, setNewCategory }) => {
         !newCategory && "hidden"
       }`}
     >
-      <div className="w-full relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg ">
+      <div className="w-full relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg max-w-screen-sm">
         <h1 className='text-2xl md:text-3xl'>افزودن دسته جدید</h1>
         <input type="text" className='block w-full  border border-strok rounded-md p-4 mt-4 outline-none' placeholder='نام دسته' />
         <Button text='افزودن' style='mt-4 w-full' fill />
