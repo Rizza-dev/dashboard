@@ -12,7 +12,7 @@ const LogoSetting = () => {
         </div>
         <div className='w-full'>
           <label htmlFor="brandName">نام برند شما</label>
-          <input type="text" placeholder='brilliant' className='block w-full border border-strok rounded-md p-4 mt-4 outline-none' />
+          <input type="text" id='brandName' placeholder='brilliant' className='block w-full border border-strok rounded-md p-4 mt-4 outline-none' />
         </div>
     </div>
   )

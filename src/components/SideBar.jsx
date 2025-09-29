@@ -114,7 +114,7 @@ const SideBar = () => {
             <Link className="bg-strok px-3 py-2 md:p-4 rounded-[32px]" href="/">
               <LogOut className="w-4 md:w-6" />
             </Link>
-            <Link href="/" className={`text-xl`}>
+            <Link href="/login" className={`text-xl`}>
               خروج
             </Link>
           </li>
