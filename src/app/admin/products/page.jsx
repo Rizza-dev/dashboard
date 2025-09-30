@@ -1,9 +1,9 @@
 "use client";
-import Button from "@/components/Button";
-import CategoryList from "@/components/CategoryList";
-import CreateProduct from "@/components/CreateProduct";
-import NewCategory from "@/components/NewCategory";
-import ProductsList from "@/components/ProductsList";
+import Button from "@/components/admin/Button";
+import CategoryList from "@/components/admin/CategoryList";
+import CreateProduct from "@/components/admin/CreateProduct";
+import NewCategory from "@/components/admin/NewCategory";
+import ProductsList from "@/components/admin/ProductsList";
 import { Plus } from "lucide-react";
 import React, { useState } from "react";
 

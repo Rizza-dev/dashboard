@@ -15,7 +15,8 @@ import { usePathname } from "next/navigation";
 const SideBar = () => {
   const { isOpen, onClose } = useMenuState();
   const router = usePathname();
-  const path = router.split("/")[1];
+  const path = router
+  console.log(path);
   
   return (
     <div>
@@ -44,10 +45,10 @@ const SideBar = () => {
             onClick={onClose}
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
-            <Link className={`bg-strok px-3 py-2 md:p-4 rounded-full ${path === '' && 'border border-foreground'}`} href="/">
+            <Link className={`bg-strok px-3 py-2 md:p-4 rounded-full ${path === '/admin' && 'border border-foreground'}`} href="/admin">
               <LayoutDashboard className="w-4 md:w-6" />
             </Link>
-            <Link href="/" className={`text-xl`}>
+            <Link href="/admin" className={`text-xl`}>
               داشبورد
             </Link>
           </li>
@@ -56,12 +57,12 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`bg-strok px-3 py-2 md:p-4 rounded-[32px] ${path === 'products' && 'border border-foreground'}`}
-              href="/products"
+              className={`bg-strok px-3 py-2 md:p-4 rounded-[32px] ${path === '/admin/products' && 'border border-foreground'}`}
+              href="/admin/products"
             >
               <PackageSearch className="w-4 md:w-6" />
             </Link>
-            <Link href="/products" className={`text-xl`}>
+            <Link href="/admin/products" className={`text-xl`}>
               محصولات
             </Link>
           </li>
@@ -70,12 +71,12 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={` ${path === 'orders' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
-              href="/orders"
+              className={` ${path === '/admin/orders' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              href="/admin/orders"
             >
               <Truck className="w-4 md:w-6" />
             </Link>
-            <Link href="/orders" className={` text-xl`}>
+            <Link href="/admin/orders" className={` text-xl`}>
               سفارشات
             </Link>
           </li>
@@ -84,12 +85,12 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`${path === 'users' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
-              href="/users"
+              className={`${path === '/admin/users' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              href="/admin/users"
             >
               <Users className="w-4 md:w-6" />
             </Link>
-            <Link href="/users" className={` text-xl`}>
+            <Link href="/admin/users" className={` text-xl`}>
               کاربران
             </Link>
           </li>
@@ -98,12 +99,12 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`${path === 'settings' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
-              href="/settings"
+              className={`${path === '/admin/settings' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              href="/admin/settings"
             >
               <Settings className="w-4 md:w-6" />
             </Link>
-            <Link href="/settings" className={`text-xl`}>
+            <Link href="/admin/settings" className={`text-xl`}>
               تنظیمات
             </Link>
           </li>
@@ -111,10 +112,10 @@ const SideBar = () => {
             onClick={onClose}
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
-            <Link className="bg-strok px-3 py-2 md:p-4 rounded-[32px]" href="/">
+            <Link className="bg-strok px-3 py-2 md:p-4 rounded-[32px]" href="/admin/api/logout">
               <LogOut className="w-4 md:w-6" />
             </Link>
-            <Link href="/login" className={`text-xl`}>
+            <Link href="/admin/api/logout" className={`text-xl`}>
               خروج
             </Link>
           </li>

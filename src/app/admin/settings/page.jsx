@@ -1,9 +1,9 @@
 "use client";
-import AdminProfile from "@/components/AdminProfile";
-import Button from "@/components/Button";
-import LogoSetting from "@/components/LogoSetting";
-import MainBanner from "@/components/MainBanner";
-import SocialMedia from "@/components/SocialMedia";
+import AdminProfile from "@/components/admin/AdminProfile";
+import Button from "@/components/admin/Button";
+import LogoSetting from "@/components/admin/LogoSetting";
+import MainBanner from "@/components/admin/MainBanner";
+import SocialMedia from "@/components/admin/SocialMedia";
 import { useState } from "react";
 
 const page = () => {
