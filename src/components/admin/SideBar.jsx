@@ -1,4 +1,5 @@
 "use client";
+import { useAuthStore } from "@/store/authStore";
 import useMenuState from "@/store/MenuState";
 import {
   LayoutDashboard,
@@ -10,14 +11,15 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const SideBar = () => {
+  const { logout , user , token} = useAuthStore();
   const { isOpen, onClose } = useMenuState();
   const router = usePathname();
-  const path = router
-  console.log(path);
-  
+  const path = router;
+
   return (
     <div>
       {isOpen ? (
@@ -36,7 +38,9 @@ const SideBar = () => {
             onClick={onClose}
             className="cursor-pointer md:hidden flex items-center justify-center gap-2"
           >
-            <button className={`bg-strok px-3 py-2 md:p-4 rounded-full cursor-pointer`}>
+            <button
+              className={`bg-strok px-3 py-2 md:p-4 rounded-full cursor-pointer`}
+            >
               <X className="w-4 md:w-6" />
             </button>
             <p className={`text-xl`}>بستن منو</p>
@@ -45,7 +49,12 @@ const SideBar = () => {
             onClick={onClose}
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
-            <Link className={`bg-strok px-3 py-2 md:p-4 rounded-full ${path === '/admin' && 'border border-foreground'}`} href="/admin">
+            <Link
+              className={`bg-strok px-3 py-2 md:p-4 rounded-full ${
+                path === "/admin" && "border border-foreground"
+              }`}
+              href="/admin"
+            >
               <LayoutDashboard className="w-4 md:w-6" />
             </Link>
             <Link href="/admin" className={`text-xl`}>
@@ -57,7 +66,9 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`bg-strok px-3 py-2 md:p-4 rounded-[32px] ${path === '/admin/products' && 'border border-foreground'}`}
+              className={`bg-strok px-3 py-2 md:p-4 rounded-[32px] ${
+                path === "/admin/products" && "border border-foreground"
+              }`}
               href="/admin/products"
             >
               <PackageSearch className="w-4 md:w-6" />
@@ -71,7 +82,9 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={` ${path === '/admin/orders' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              className={` ${
+                path === "/admin/orders" && "border border-foreground"
+              } bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/admin/orders"
             >
               <Truck className="w-4 md:w-6" />
@@ -85,7 +98,9 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`${path === '/admin/users' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              className={`${
+                path === "/admin/users" && "border border-foreground"
+              } bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/admin/users"
             >
               <Users className="w-4 md:w-6" />
@@ -99,7 +114,9 @@ const SideBar = () => {
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <Link
-              className={`${path === '/admin/settings' && 'border border-foreground'} bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
+              className={`${
+                path === "/admin/settings" && "border border-foreground"
+              } bg-strok px-3 py-2 md:p-4 rounded-[32px]`}
               href="/admin/settings"
             >
               <Settings className="w-4 md:w-6" />
@@ -112,12 +129,12 @@ const SideBar = () => {
             onClick={onClose}
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
-            <Link className="bg-strok px-3 py-2 md:p-4 rounded-[32px]" href="/admin/api/logout">
+            <span className="bg-strok px-3 py-2 md:p-4 rounded-[32px]">
               <LogOut className="w-4 md:w-6" />
-            </Link>
-            <Link href="/admin/api/logout" className={`text-xl`}>
+            </span>
+            <button onClick={logout} className={`text-xl`}>
               خروج
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
