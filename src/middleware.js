@@ -13,6 +13,14 @@ export async function middleware(req) {
 
   const { payload } = await jwtVerify(token, secret);
 
+  // مسیرهای خصوصی که نیاز به ورود دارند
+  const protectedPaths = ['/admin' , '/profile'];
+
+  // مسیرهای خصوصی → اگر توکن ندارد → هدایت به لاگین
+  if (protectedPaths.some(path => url.startsWith(path)) && !token) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   if (req.nextUrl.pathname.startsWith("/admin") && payload.role !== "admin") {
     return NextResponse.redirect(new URL("/", req.url));
   }
@@ -22,5 +30,5 @@ export async function middleware(req) {
 
 // تعریف مسیرهایی که middleware روشون اعمال بشه
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*","/profile/:path*"],
 };

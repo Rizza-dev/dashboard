@@ -4,15 +4,14 @@ import NewUserTable from "@/components/admin/NewUserTable";
 import SalesTable from "@/components/admin/SalesTable";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect } from "react";
-
 import { data, sales, users } from "@/assets/assets";
 import SalesCount from "@/components/admin/SalesCount";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Dashboard = () => {
-  
+  const { user } = useAuthStore();
+  useEffect(() => {}, [user]);
   return (
     <div className="flex w-full gap-6 flex-col h-full mb-10">
       {/* ===================top======================== */}

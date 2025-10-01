@@ -11,14 +11,17 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const SideBar = () => {
-  const { logout , user , token} = useAuthStore();
+  const { clearAuth } = useAuthStore();
   const { isOpen, onClose } = useMenuState();
   const router = usePathname();
   const path = router;
+  const handleLogout = () => {
+    clearAuth();
+    window.location.href = "/";
+  };
 
   return (
     <div>
@@ -126,15 +129,13 @@ const SideBar = () => {
             </Link>
           </li>
           <li
-            onClick={onClose}
+            onClick={handleLogout}
             className="cursor-pointer flex items-center justify-center gap-2 "
           >
             <span className="bg-strok px-3 py-2 md:p-4 rounded-[32px]">
               <LogOut className="w-4 md:w-6" />
             </span>
-            <button onClick={logout} className={`text-xl`}>
-              خروج
-            </button>
+            <button className={`text-xl`}>خروج</button>
           </li>
         </ul>
       </div>

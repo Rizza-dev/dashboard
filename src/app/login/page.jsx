@@ -1,25 +1,25 @@
 "use client";
 import Button from "@/components/admin/Button";
+import ProtactedRoute from "@/components/site/ProtactedRoute";
 import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const page = () => {
-  const router = useRouter();
-  const { token, setAuth } = useAuthStore();
+  const { token, setAuth, user } = useAuthStore();
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-  useEffect(()=>{
-    if(token){
-      router.push("/");
+  useEffect(() => {
+    if (token && user) {
+      if (user.role === "admin") {
+        window.location.href = "/admin";
+      } else window.location.href = "/profile";
     }
-  },[token,router])
+  }, [token, user]);
 
   const sendOTP = async () => {
     setLoading(true);
@@ -27,9 +27,9 @@ const page = () => {
     const res = await api.post("/auth/send-otp", { phone });
 
     const data = res.data;
-    
+
     if (data.success) {
-      toast.success('کد تایید به شماره موبایل شما ارسال شد');
+      toast.success("کد تایید به شماره موبایل شما ارسال شد");
       setStep(2);
       setLoading(false);
     } else {
@@ -39,23 +39,22 @@ const page = () => {
 
   const verifyOTP = async () => {
     setLoading(true);
-    
-      const res = await api.post("/auth/verify-otp", { phone, otp });
-      const data = res.data;
 
-      if (data.success) {
-        setAuth(data.token, data.user);
-        toast.success(data.message);
-      }else{
-        toast.error(data.message);
-      }
+    const res = await api.post("/auth/verify-otp", { phone, otp });
+    const data = res.data;
 
-      if (data.requiresProfile === true) {
-        router.push("/profile");
-      }
+    if (data.success) {
+      setAuth(data.token, data.user);
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
 
-      setLoading(false);
-   
+    if (data.requiresProfile === true) {
+      window.location.href = "/profile";
+    }
+
+    setLoading(false);
   };
 
   return (
