@@ -1,11 +1,20 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { X } from "lucide-react";
 import Image from "next/image";
+import api from "@/lib/axios";
 
 const CreateProduct = ({ createProduct, setCreateProduct }) => {
-     const [newPrice, setNewPrice] = useState(false);
+  const [newPrice, setNewPrice] = useState(false);
+  const [categorys, setCategorys] = useState([]);
+  useEffect(() => {
+    const getCAtegorys = async () => {
+      const res = await api.get("/categories");
+      setCategorys(res.data);
+    };
+    getCAtegorys();
+  }, []);
   return (
     <div
       className={`absolute top-0 right-0  left-0 bottom-0 bg-background/80 backdrop:blur-2xl h-full w-full flex items-start justify-center ${
@@ -120,6 +129,14 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             <input type="color" name="color" id="color" placeholder="رنگ" />
             <input type="color" name="color" id="color" placeholder="رنگ" />
             <input type="color" name="color" id="color" placeholder="رنگ" />
+          </div>
+          <div className="w-full">
+            <select className="border border-strok rounded-md p-4 outline-none block" name="category" id="category">
+              <option  value="">انتخاب دسته</option>
+              {categorys.map((cat , index) => (
+                <option className="text-background" value={cat.slug} key={index}>{cat.name}</option>
+              ))}
+            </select>
           </div>
           <div className="flex items-center justify-start gap-4 flex-wrap">
             <div className="w-full ">
