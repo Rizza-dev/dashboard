@@ -37,7 +37,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
   const handleUpload = async (e) => {};
   // handle change
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target?.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -53,6 +53,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
         onSubmit={handleSubmit}
         className="w-full max-w-screen-xl relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row"
       >
+        {/* ===================image===================== */}
         <div className="w-full">
           <h1 className="text-2xl md:text-3xl text-center">عکس محصول</h1>
           <div className="flex flex-col items-center justify-center gap-4 w-full mt-4">
@@ -92,8 +93,10 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             </div>
           </div>
         </div>
+        {/* ===================details===================== */}
         <div className="w-full h-full flex flex-col items-center justify-center gap-4 max-sm:mt-4">
           <h1 className="text-2xl md:text-3xl text-center">توضیحات محصول</h1>
+          {/* ===================name===================== */}
           <input
             value={form.name}
             onChange={(e) => handleChange(e.target.value)}
@@ -103,6 +106,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             placeholder="نام محصول"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           />
+          {/* ====================description===================== */}
           <textarea
             name="description"
             id="description"
@@ -111,71 +115,73 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             placeholder="توضیحات"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           ></textarea>
+          {/* ====================colors===================== */}
           <p className="w-full text-right">رنگبندی</p>
           <div className="w-full flex flex-wrap items-center justify-start gap-2">
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
               onChange={(e) => handleChange(e.target.value)}
               type="color"
-              name="color"
+              name="colors"
               id="color"
               placeholder="رنگ"
             />
           </div>
+          {/* ====================category===================== */}
           <div className="w-full">
             <select
               onChange={(e) => handleChange(e.target.value)}
               className="border border-strok rounded-md p-4 outline-none block"
-              name="category"
-              id="category"
+              name="categoryId"
+              id="categoryId"
             >
               <option value="">انتخاب دسته</option>
               {categorys.map((cat, index) => (
@@ -185,6 +191,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               ))}
             </select>
           </div>
+          {/* ====================stock===================== */}
           <div className="flex items-center justify-start gap-4 flex-wrap">
             <div className="w-full ">
               <label htmlFor="count">تعداد</label>
@@ -197,6 +204,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 className="border border-strok rounded-md p-4  outline-none block"
               />
             </div>
+            {/* ====================price===================== */}
             <div className="w-full ">
               <label htmlFor="price">قیمت</label>
               <input
@@ -208,11 +216,11 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 className="border border-strok rounded-md p-4  outline-none block"
               />
             </div>
+            {/* ====================special price===================== */}
             <div className="w-full">
               <label htmlFor="checkSpecial">قیمت ویژه</label>
               <input
                 type="checkbox"
-                name="checkSpecial"
                 id="checkSpecial"
                 className="border border-strok rounded-md p-4  outline-none block"
                 onChange={(e) => setNewPrice(e.target.checked)}
@@ -231,6 +239,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 />
               </div>
             )}
+            {/* ====================button===================== */}
             <Button
               disabled={uploading}
               text={"افزودن محصول"}
