@@ -35,6 +35,10 @@ const ProductSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+    stock: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

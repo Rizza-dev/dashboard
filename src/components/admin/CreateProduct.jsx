@@ -8,6 +8,23 @@ import api from "@/lib/axios";
 const CreateProduct = ({ createProduct, setCreateProduct }) => {
   const [newPrice, setNewPrice] = useState(false);
   const [categorys, setCategorys] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  // get form data
+  const [form, setForm] = useState({
+    name: "",
+    price: "",
+    description: "",
+    colors: [],
+    images: [],
+    specialPrice: "",
+    discountStart: "",
+    discountEnd: "",
+    categoryId: "",
+    stock: 0,
+  });
+
+  // get category
   useEffect(() => {
     const getCAtegorys = async () => {
       const res = await api.get("/categories");
@@ -15,13 +32,27 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
     };
     getCAtegorys();
   }, []);
+
+  // upload image
+  const handleUpload = async (e) => {};
+  // handle change
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
   return (
     <div
       className={`absolute top-0 right-0  left-0 bottom-0 bg-background/80 backdrop:blur-2xl h-full w-full flex items-start justify-center ${
         !createProduct && "hidden"
       }`}
     >
-      <div className="w-full max-w-screen-xl relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-screen-xl relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row"
+      >
         <div className="w-full">
           <h1 className="text-2xl md:text-3xl text-center">عکس محصول</h1>
           <div className="flex flex-col items-center justify-center gap-4 w-full mt-4">
@@ -30,85 +61,44 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 <Image
                   fill
                   className="absolute inset-0 "
-                  src="/upload.png"
+                  src={form.images[0] || "/upload.png"}
                   alt="upload"
+                  onChange={handleUpload}
                 />
-                <input id="upload" type="file" accept="image/*" hidden />
+                <input
+                  name="images"
+                  id="upload"
+                  type="file"
+                  accept="image/*"
+                  hidden
+                />
               </label>
             </div>
+            {uploading ? <p>در حال بارگذاری</p> : <></>}
             <div className="w-full h-1/3 flex items-center justify-center gap-2">
-              <div className="relative w-20 h-20 rounded-md overflow-hidden">
-                <label htmlFor="uploadImage2">
+              {form.images.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative w-20 h-20 rounded-md overflow-hidden"
+                >
                   <Image
                     fill
                     className="absolute inset-0"
-                    src="/upload.png"
-                    alt="upload"
+                    src={image}
+                    alt="preview"
                   />
-                  <input
-                    id="uploadImage2"
-                    type="file"
-                    accept="image/*"
-                    hidden
-                  />
-                </label>
-              </div>
-              <div className="relative w-20 h-20 rounded-md overflow-hidden">
-                <label htmlFor="uploadImage4">
-                  <Image
-                    fill
-                    className="absolute inset-0"
-                    src="/upload.png"
-                    alt="upload"
-                  />
-                  <input
-                    id="uploadImage4"
-                    type="file"
-                    accept="image/*"
-                    hidden
-                  />
-                </label>
-              </div>
-              <div className="relative w-20 h-20 rounded-md overflow-hidden">
-                <label htmlFor="uploadImage5">
-                  <Image
-                    fill
-                    className="absolute inset-0"
-                    src="/upload.png"
-                    alt="upload"
-                  />
-                  <input
-                    id="uploadImage5"
-                    type="file"
-                    accept="image/*"
-                    hidden
-                  />
-                </label>
-              </div>
-              <div className="relative w-20 h-20 rounded-md overflow-hidden">
-                <label htmlFor="uploadImage3">
-                  <Image
-                    fill
-                    className="absolute inset-0"
-                    src="/upload.png"
-                    alt="upload"
-                  />
-                  <input
-                    id="uploadImage3"
-                    type="file"
-                    accept="image/*"
-                    hidden
-                  />
-                </label>
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
         <div className="w-full h-full flex flex-col items-center justify-center gap-4 max-sm:mt-4">
           <h1 className="text-2xl md:text-3xl text-center">توضیحات محصول</h1>
           <input
+            value={form.name}
+            onChange={(e) => handleChange(e.target.value)}
             type="text"
-            name="productName"
+            name="name"
             id="productName"
             placeholder="نام محصول"
             className="block w-full border border-strok rounded-md p-4  outline-none"
@@ -116,25 +106,82 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
           <textarea
             name="description"
             id="description"
+            value={form.description}
+            onChange={(e) => handleChange(e.target.value)}
             placeholder="توضیحات"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           ></textarea>
           <p className="w-full text-right">رنگبندی</p>
           <div className="w-full flex flex-wrap items-center justify-start gap-2">
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
-            <input type="color" name="color" id="color" placeholder="رنگ" />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
+            <input
+              onChange={(e) => handleChange(e.target.value)}
+              type="color"
+              name="color"
+              id="color"
+              placeholder="رنگ"
+            />
           </div>
           <div className="w-full">
-            <select className="border border-strok rounded-md p-4 outline-none block" name="category" id="category">
-              <option  value="">انتخاب دسته</option>
-              {categorys.map((cat , index) => (
-                <option className="text-background" value={cat.slug} key={index}>{cat.name}</option>
+            <select
+              onChange={(e) => handleChange(e.target.value)}
+              className="border border-strok rounded-md p-4 outline-none block"
+              name="category"
+              id="category"
+            >
+              <option value="">انتخاب دسته</option>
+              {categorys.map((cat, index) => (
+                <option className="text-background" value={cat._id} key={index}>
+                  {cat.name}
+                </option>
               ))}
             </select>
           </div>
@@ -142,15 +189,19 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             <div className="w-full ">
               <label htmlFor="count">تعداد</label>
               <input
+                value={form.stock}
+                onChange={(e) => handleChange(e.target.value)}
                 type="number"
-                name="count"
-                id="count"
+                name="stock"
+                id="stock"
                 className="border border-strok rounded-md p-4  outline-none block"
               />
             </div>
             <div className="w-full ">
               <label htmlFor="price">قیمت</label>
               <input
+                value={form.price}
+                onChange={(e) => handleChange(e.target.value)}
                 type="number"
                 name="price"
                 id="price"
@@ -158,11 +209,11 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               />
             </div>
             <div className="w-full">
-              <label htmlFor="SpecialPrice">قیمت ویژه</label>
+              <label htmlFor="checkSpecial">قیمت ویژه</label>
               <input
                 type="checkbox"
-                name="SpecialPrice"
-                id="SpecialPrice"
+                name="checkSpecial"
+                id="checkSpecial"
                 className="border border-strok rounded-md p-4  outline-none block"
                 onChange={(e) => setNewPrice(e.target.checked)}
               />
@@ -171,14 +222,21 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               <div className="w-full ">
                 <label htmlFor="newPrice">قیمت جدید</label>
                 <input
+                  value={form.specialPrice}
+                  onChange={(e) => handleChange(e.target.value)}
                   type="number"
-                  name="newPrice"
-                  id="newPrice"
+                  name="specialPrice"
+                  id="specialPrice"
                   className="border border-strok rounded-md p-4  outline-none block"
                 />
               </div>
             )}
-            <Button text={"افزودن محصول"} style={"w-full my-4"} fill={true} />
+            <Button
+              disabled={uploading}
+              text={"افزودن محصول"}
+              style={"w-full my-4"}
+              fill={true}
+            />
           </div>
         </div>
         <span
@@ -187,7 +245,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
         >
           <X />
         </span>
-      </div>
+      </form>
     </div>
   );
 };
