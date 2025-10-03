@@ -30,10 +30,10 @@ export async function POST(req) {
       discountStart,
       discountEnd,
       categoryId,
-      stock
+      stock,
     } = body;
 
-    if ((!name, !price, !description, !colors, !images, !category)) {
+    if ((!name, !price, !description,  !images, !categoryId)) {
       return NextResponse.json(
         { message: "لطفا تمامی فیلد ها را پر کنید" },
         { status: 400 }

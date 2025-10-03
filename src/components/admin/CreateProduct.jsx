@@ -4,6 +4,7 @@ import Button from "./Button";
 import { X } from "lucide-react";
 import Image from "next/image";
 import api from "@/lib/axios";
+import toast from "react-hot-toast";
 
 const CreateProduct = ({ createProduct, setCreateProduct }) => {
   const [newPrice, setNewPrice] = useState(false);
@@ -34,14 +35,50 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
   }, []);
 
   // upload image
-  const handleUpload = async (e) => {};
+  const handleUpload = async (e) => {
+    setUploading(true);
+
+    const files = e.target.files;
+    const formData = new FormData();
+    for (const file of files) {
+      formData.append("images", file);
+    }
+
+    const res = await api.post("/upload", formData);
+
+    const data = res.data;
+    setForm({ ...form, images: [...form.images, ...data.urls] });
+
+    setUploading(false);
+  };
   // handle change
   const handleChange = (e) => {
-    setForm({ ...form, [e.target?.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // handle submit ایجاد محصول
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await api.post("/products", JSON.stringify(form));
+      toast.success("محصول با موفقیت ایجاد شد");
+      setForm({
+        name: "",
+        price: "",
+        description: "",
+        colors: [],
+        images: [],
+        specialPrice: "",
+        discountStart: "",
+        discountEnd: "",
+        categoryId: "",
+        stock: 0,
+      });
+    } catch (error) {
+      toast.error("خطا در ایجاد محصول");
+      console.log(error);
+      return;
+    }
   };
   return (
     <div
@@ -62,16 +99,23 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 <Image
                   fill
                   className="absolute inset-0 "
-                  src={form.images[0] || "/upload.png"}
+                  src={
+                    form.images[0]
+                      ? form.images[0] instanceof File
+                        ? URL.createObjectURL(form.images[0]) // وقتی تازه آپلود شده
+                        : form.images[0] // وقتی استرینگ URL هست (Cloudinary یا DB)
+                      : "/upload.png" // وقتی هیچی انتخاب نشده
+                  }
                   alt="upload"
-                  onChange={handleUpload}
                 />
                 <input
+                  onChange={(e) => handleUpload(e)}
                   name="images"
                   id="upload"
                   type="file"
                   accept="image/*"
                   hidden
+                  multiple
                 />
               </label>
             </div>
@@ -99,19 +143,19 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
           {/* ===================name===================== */}
           <input
             value={form.name}
-            onChange={(e) => handleChange(e.target.value)}
-            type="text"
             name="name"
+            onChange={(e) => handleChange(e)}
+            type="text"
             id="productName"
             placeholder="نام محصول"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           />
           {/* ====================description===================== */}
           <textarea
+            value={form.description}
             name="description"
             id="description"
-            value={form.description}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => handleChange(e)}
             placeholder="توضیحات"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           ></textarea>
@@ -119,56 +163,56 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
           <p className="w-full text-right">رنگبندی</p>
           <div className="w-full flex flex-wrap items-center justify-start gap-2">
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
               placeholder="رنگ"
             />
             <input
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               type="color"
               name="colors"
               id="color"
@@ -178,7 +222,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
           {/* ====================category===================== */}
           <div className="w-full">
             <select
-              onChange={(e) => handleChange(e.target.value)}
+              onChange={(e) => handleChange(e)}
               className="border border-strok rounded-md p-4 outline-none block"
               name="categoryId"
               id="categoryId"
@@ -194,10 +238,10 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
           {/* ====================stock===================== */}
           <div className="flex items-center justify-start gap-4 flex-wrap">
             <div className="w-full ">
-              <label htmlFor="count">تعداد</label>
+              <label htmlFor="stock">تعداد</label>
               <input
                 value={form.stock}
-                onChange={(e) => handleChange(e.target.value)}
+                onChange={(e) => handleChange(e)}
                 type="number"
                 name="stock"
                 id="stock"
@@ -209,7 +253,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               <label htmlFor="price">قیمت</label>
               <input
                 value={form.price}
-                onChange={(e) => handleChange(e.target.value)}
+                onChange={(e) => handleChange(e)}
                 type="number"
                 name="price"
                 id="price"
@@ -231,7 +275,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 <label htmlFor="newPrice">قیمت جدید</label>
                 <input
                   value={form.specialPrice}
-                  onChange={(e) => handleChange(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                   type="number"
                   name="specialPrice"
                   id="specialPrice"
