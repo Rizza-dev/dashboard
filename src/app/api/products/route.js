@@ -70,7 +70,6 @@ export async function POST(req) {
   }
 }
 
-
 export async function DELETE(req) {
   const body = await req.json();
   try {
@@ -112,5 +111,39 @@ export async function DELETE(req) {
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "خطا در حذف محصول" }, { status: 500 });
+  }
+}
+
+export async function PUT(req) {
+  try {
+    await connectDB();
+    const body = await req.json();
+    const { id, ...data } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { message: "لطفا شناسه محصول را وارد کنید" },
+        { status: 400 }
+      );
+    }
+
+    const updatedProduct = await Product.findOneAndUpdate(
+      { _id: id },
+      { ...data },
+      { new: true }
+    );
+    if (!updatedProduct) {
+      return NextResponse.json({ message: "محصول یافت نشد" }, { status: 404 });
+    }
+    return NextResponse.json(
+      { message: "محصول با موفقیت ویرایش شد" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "خطا در ویرایش محصول" },
+      { status: 500 }
+    );
   }
 }

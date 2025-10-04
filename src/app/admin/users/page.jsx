@@ -6,13 +6,16 @@ import CreateUser from "@/components/admin/CreateUser";
 import api from "@/lib/axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 const page = () => {
   const [createUser, setCreateUser] = useState(false);
-
+  const [loading , setLoading] = useState(false);
   const [usersList, setUsersList] = useState([]);
   const getUsers = async () => {
+    setLoading(true);
     const res = await api.get("/users");
     setUsersList(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     getUsers();
@@ -32,6 +35,10 @@ const page = () => {
       console.log(error);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="w-full h-screen max-h-[85vh] border border-strok max-w-screen-2xl mx-auto rounded-lg p-6 bg-bg-2 relative">

@@ -32,8 +32,7 @@ const CategoryList = ({ categories , getAllCategory }) => {
               <th className="p-2 ">{category.name}</th>
               <th className="p-2 ">{category.slug}</th>
               <th className="p-2 flex items-center justify-center gap-2">
-                <button onClick={() => handleDeleteCategory(category._id)}><Trash className="w-4 md:w-6 cursor-pointer" /></button>
-                <Edit className="w-4 md:w-6 cursor-pointer" />
+                <button onClick={() => handleDeleteCategory(category._id)}><Trash size={20} className="w-4 md:w-6 cursor-pointer" /></button>
               </th>
             </tr>
           ))}

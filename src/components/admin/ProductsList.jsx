@@ -6,8 +6,6 @@ import CreateProduct from "./CreateProduct";
 import Link from "next/link";
 
 const ProductsList = ({ products, getAllProduct }) => {
-  const [edit, setEdit] = useState(false);
-  const [editId, setEditId] = useState(null);
   const handleDeleteProduct = async (id) => {
     try {
       await api.delete(`/products`, { data: { id } });
@@ -51,11 +49,11 @@ const ProductsList = ({ products, getAllProduct }) => {
               </th>
               <th className="p-2 flex items-center justify-center gap-2">
                 <button onClick={() => handleDeleteProduct(product._id)}>
-                  <Trash className="w-4 md:w-6 cursor-pointer" />
+                  <Trash className="w-4 md:w-5 cursor-pointer" />
                 </button>
 
                 <Link href={`/admin/products/${product._id}`}>
-                  <Edit className="w-4 md:w-6 cursor-pointer" />
+                  <Edit className="w-4 md:w-5 cursor-pointer" />
                 </Link>
               </th>
             </tr>

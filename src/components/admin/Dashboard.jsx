@@ -6,7 +6,17 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { data, sales, users } from "@/assets/assets";
 import SalesCount from "@/components/admin/SalesCount";
+import { useEffect, useState } from "react";
+import api from "@/lib/axios";
 const Dashboard = () => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    api.get("/users").then((res) => setUsers(res.data));
+  }, []);
+
+  const lastFiveUsers = [...users]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5);
 
   return (
     <div className="flex w-full gap-6 flex-col h-full mb-10">
@@ -33,7 +43,7 @@ const Dashboard = () => {
               <ArrowLeft size={16} />
             </Link>
           </div>
-          <NewUserTable users={users} />
+          <NewUserTable users={lastFiveUsers} />
         </div>
         {/* ====================Best Sales===================== */}
         <div className="w-full bg-bg-2 h-[400px] border border-strok rounded-2xl p-6 flex flex-col items-center justify-start gap-4">

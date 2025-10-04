@@ -17,7 +17,7 @@ const EditUser = ({ user }) => {
     try {
       await api.put(`/users/`, {id : user._id, ...form});
       toast.success("کاربر با موفقیت ویرایش شد");
-      
+      window.location.href = `/admin/users`;
     } catch (error) {
       console.log(error);
       toast.error("خطا در ویرایش کاربر");

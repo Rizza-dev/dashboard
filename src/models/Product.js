@@ -34,7 +34,7 @@ const ProductSchema = new mongoose.Schema(
     specialPrice: { type: Number }, // قیمت ویژه
     discountStart: { type: Date }, // تاریخ شروع تخفیف
     discountEnd: { type: Date }, // تاریخ پایان تخفیف
-
+     salesCount: { type: Number, default: 0 },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

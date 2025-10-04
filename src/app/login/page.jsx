@@ -13,14 +13,6 @@ const page = () => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (token && user) {
-      if (user.role === "admin") {
-        window.location.href = "/admin";
-      } else window.location.href = "/profile";
-    }
-  }, [token, user]);
-
   const sendOTP = async () => {
     setLoading(true);
 
@@ -50,9 +42,9 @@ const page = () => {
       toast.error(data.message);
     }
 
-    if (data.requiresProfile === true) {
-      window.location.href = "/profile";
-    }
+    if (data.user.role === "admin") {
+      window.location.href = "/admin";
+    } else window.location.href = "/profile";
 
     setLoading(false);
   };
@@ -73,6 +65,11 @@ const page = () => {
               name="phone"
               id="phone"
               placeholder="09123456789"
+              inputMode="tel"
+              autoComplete="tel"
+              minLength="11"
+              maxLength="14"
+              pattern="^(?:\+98|0098|0)9\d{9}$"
               className="block w-full text-left border border-strok rounded-md p-4 mt-4 outline-none"
             />
             <div onClick={sendOTP}>
