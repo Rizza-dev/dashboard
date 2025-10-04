@@ -27,7 +27,7 @@ const Navbar = () => {
       </div>
       <div className="md:pl-8 flex items-center jucetify-center gap-2">
         <p className="md:text-[40px] text-2xl">Brilliant</p>
-        <Image
+        <img
           src={"/logo.svg"}
           alt="logo"
           className="w-[32px]"

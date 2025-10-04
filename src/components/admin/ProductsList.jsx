@@ -1,8 +1,13 @@
 import api from "@/lib/axios";
 import { Edit, Trash } from "lucide-react";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import CreateProduct from "./CreateProduct";
+import Link from "next/link";
 
-const ProductsList = ({ products,getAllProduct }) => {
+const ProductsList = ({ products, getAllProduct }) => {
+  const [edit, setEdit] = useState(false);
+  const [editId, setEditId] = useState(null);
   const handleDeleteProduct = async (id) => {
     try {
       await api.delete(`/products`, { data: { id } });
@@ -14,7 +19,7 @@ const ProductsList = ({ products,getAllProduct }) => {
     }
   };
   return (
-    <div className="max-h-[400px] lg:max-h-[800px] overflow-y-auto mt-4">
+    <div className="max-h-[400px] lg:max-h-[800px] overflow-y-auto mt-4 relative">
       <table className="w-full">
         <thead className="sticky top-0 border-b border-strok bg-bg-2">
           <tr className="border-b border-strok text-xs md:text-base">
@@ -48,7 +53,10 @@ const ProductsList = ({ products,getAllProduct }) => {
                 <button onClick={() => handleDeleteProduct(product._id)}>
                   <Trash className="w-4 md:w-6 cursor-pointer" />
                 </button>
-                <Edit className="w-4 md:w-6 cursor-pointer" />
+
+                <Link href={`/admin/products/${product._id}`}>
+                  <Edit className="w-4 md:w-6 cursor-pointer" />
+                </Link>
               </th>
             </tr>
           ))}

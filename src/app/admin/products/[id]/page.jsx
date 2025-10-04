@@ -1,22 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Button from "./Button";
-import { X } from "lucide-react";
+import Button from "../../../../components/admin/Button";
 import Image from "next/image";
 import api from "@/lib/axios";
 import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
 
-const CreateProduct = ({ createProduct, setCreateProduct }) => {
+const page = () => {
+  const { id } = useParams();
+
   const [newPrice, setNewPrice] = useState(false);
   const [categorys, setCategorys] = useState([]);
   const [uploading, setUploading] = useState(false);
 
-
-  
+  const [allProduct, setAllProduct] = useState([]);
 
   // get form data
   const [form, setForm] = useState({
-    code : 0,
+    code: 0,
     name: "",
     price: "",
     description: "",
@@ -28,16 +29,30 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
     categoryId: "",
     stock: 0,
   });
+  // get product
+  useEffect(() => {
+    const getProduct = async () => {
+      const res = await api.get(`/products/`);
+      setForm(res.data);
+    };
+    getProduct();
+  }, []);
 
+  
+  
   // get category
   useEffect(() => {
     const getCAtegorys = async () => {
       const res = await api.get("/categories");
-      setCategorys(res.data);
+      setAllProduct(res.data);
     };
+    const findProduct = allProduct.find((item) => item._id === id);
+    if (findProduct) {
+      setForm(findProduct);
+    }
     getCAtegorys();
   }, []);
-
+  
   // upload image
   const handleUpload = async (e) => {
     setUploading(true);
@@ -68,7 +83,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
       await api.post("/products", JSON.stringify(form));
       toast.success("محصول با موفقیت ایجاد شد");
       setForm({
-        code : 0,
+        code: 0,
         name: "",
         price: "",
         description: "",
@@ -87,14 +102,10 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
     }
   };
   return (
-    <div
-      className={`absolute top-0 right-0  left-0 bottom-0 bg-background/80 backdrop:blur-2xl h-full w-full flex items-start justify-center ${
-        !createProduct && "hidden"
-      }`}
-    >
+    <div className="w-full h-full max-w-screen-2xl ">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-screen-xl relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row"
+        className="w-full max-w-screen-xl mx-auto relative h-fit bg-bg-2 border border-strok p-4 pt-10 lg:p-8 rounded-lg flex gap-2 flex-col items-center justify-center lg:justify-between lg:flex-row"
       >
         {/* ===================image===================== */}
         <div className="w-full">
@@ -105,13 +116,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                 <Image
                   fill
                   className="absolute inset-0 "
-                  src={
-                    form.images[0]
-                      ? form.images[0] instanceof File
-                        ? URL.createObjectURL(form.images[0]) // وقتی تازه آپلود شده
-                        : form.images[0] // وقتی استرینگ URL هست (Cloudinary یا DB)
-                      : "/upload.png" // وقتی هیچی انتخاب نشده
-                  }
+                  src={"/upload.png"}
                   alt="upload"
                 />
                 <input
@@ -128,7 +133,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             </div>
             {uploading ? <p>در حال بارگذاری</p> : <></>}
             <div className="w-full h-1/3 flex items-center justify-center gap-2">
-              {form.images.map((image, index) => (
+              {form?.images?.map((image, index) => (
                 <div
                   key={index}
                   className="relative w-20 h-20 rounded-md overflow-hidden"
@@ -310,15 +315,9 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             />
           </div>
         </div>
-        <span
-          onClick={() => setCreateProduct(false)}
-          className="absolute left-4 top-4 cursor-pointer"
-        >
-          <X />
-        </span>
       </form>
     </div>
   );
 };
 
-export default CreateProduct;
+export default page;

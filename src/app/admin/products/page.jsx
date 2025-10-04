@@ -8,19 +8,25 @@ import { Plus, RefreshCw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import api from "@/lib/axios";
 import toast from "react-hot-toast";
+import { set } from "mongoose";
+import Loading from "@/components/Loading";
 const page = () => {
   const [createProduct, setCreateProduct] = useState(false);
   const [newCategory, setNewCategory] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const getAllProduct = async () => {
+    setLoading(true);
     const res = await api.get("/products");
     setProducts(res.data);
+    setLoading(false);
   };
   const getAllCategory = async () => {
+    setLoading(true);
     const res = await api.get("/categories");
     setCategories(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     getAllProduct();
@@ -32,12 +38,19 @@ const page = () => {
       <div className="bg-bg-2 w-full flex flex-col justify-between flex-2 border border-strok h-full rounded-xl p-4 gap-6">
         <div className="w-full flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl">لیست محصولات</h1>
-          <button onClick={getAllProduct} className="bg-foreground/30 flex items-center justify-center gap-2 cursor-pointer text-foreground px-4 py-2 rounded-sm">
+          <button
+            onClick={getAllProduct}
+            className="bg-foreground/30 flex items-center justify-center gap-2 cursor-pointer text-foreground px-4 py-2 rounded-sm"
+          >
             رفرش کردن لیست <RefreshCw size={16} />
           </button>
         </div>
         <div className=" w-full h-full">
-          <ProductsList {...{ products,getAllProduct }} />
+          {loading ? (
+            <Loading />
+          ) : (
+            <ProductsList {...{ products, getAllProduct }} />
+          )}
         </div>
         <div className="w-full" onClick={() => setCreateProduct(true)}>
           <Button
@@ -48,14 +61,21 @@ const page = () => {
         </div>
       </div>
       <div className="bg-bg-2 w-full flex flex-col justify-between flex-1 border border-strok h-full rounded-xl p-4 gap-6">
-       <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl">لیست محصولات</h1>
-          <button onClick={getAllCategory} className="bg-foreground/30 flex items-center justify-center gap-2 cursor-pointer text-foreground px-4 py-2 rounded-sm">
+          <button
+            onClick={getAllCategory}
+            className="bg-foreground/30 flex items-center justify-center gap-2 cursor-pointer text-foreground px-4 py-2 rounded-sm"
+          >
             رفرش کردن لیست <RefreshCw size={16} />
           </button>
         </div>
         <div className=" w-full h-full">
-          <CategoryList {...{ categories , getAllCategory }} />
+          {loading ? (
+            <Loading />
+          ) : (
+            <CategoryList {...{ categories, getAllCategory }} />
+          )}
         </div>
         <div className="w-full " onClick={() => setNewCategory(true)}>
           <Button
