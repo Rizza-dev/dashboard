@@ -1,29 +1,38 @@
 import React from "react";
-import { categorys } from "@/assets/assets";
 import { Edit, Trash } from "lucide-react";
-const CategoryList = () => {
+import toast from "react-hot-toast";
+import api from "@/lib/axios";
+const CategoryList = ({ categories , getAllCategory }) => {
+  const handleDeleteCategory = async (id) => {
+    try {
+      await api.delete(`/categories`, { data: { id } });
+      toast.success("دسته بندی با موفقیت حذف شد");
+      getAllCategory();
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در حذف دسته بندی");
+    }
+  }
   return (
     <div className="max-h-[400px] lg:max-h-[800px] overflow-y-auto my-4">
       <table className="w-full">
         <thead className="sticky top-0 border-b border-strok bg-bg-2">
           <tr className="border-b border-strok text-xs md:text-base">
-            <th className="pb-4 ">کد</th>
             <th className="pb-4 ">نام دسته</th>
-            <th className="pb-4 ">تعداد محصولات</th>
+            <th className="pb-4 ">اسلاگ</th>
             <th className="pb-4 ">ویرایش</th>
           </tr>
         </thead>
         <tbody>
-          {categorys.map((category, index) => (
+          {categories.map((category, index) => (
             <tr
               key={index}
               className="border-b border-strok text-xs md:text-base hover:bg-strok"
             >
-              <th className="p-2 ">{category.code}</th>
               <th className="p-2 ">{category.name}</th>
-              <th className="p-2 ">{category.count}</th>
+              <th className="p-2 ">{category.slug}</th>
               <th className="p-2 flex items-center justify-center gap-2">
-                <Trash className="w-4 md:w-6 cursor-pointer" />
+                <button onClick={() => handleDeleteCategory(category._id)}><Trash className="w-4 md:w-6 cursor-pointer" /></button>
                 <Edit className="w-4 md:w-6 cursor-pointer" />
               </th>
             </tr>

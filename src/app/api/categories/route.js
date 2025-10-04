@@ -46,3 +46,29 @@ export async function POST(req) {
     );
   }
 }
+export async function DELETE(req) {
+  const body = await req.json();
+  try {
+    await connectDB();
+    const { id } = body;
+    if (!id) {
+      return NextResponse.json(
+        { message: "لطفا شناسه دسته را وارد کنید" },
+        { status: 400 }
+      );
+    }
+
+    const deletedCategory = await Category.findByIdAndDelete(id);
+    if (!deletedCategory) {
+      return NextResponse.json({ message: "دسته یافت نشد" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { message: "دسته با موفقیت حذف شد" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: "خطا در حذف دسته" }, { status: 500 });
+  }
+}

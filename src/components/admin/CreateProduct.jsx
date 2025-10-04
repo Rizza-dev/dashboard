@@ -13,6 +13,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
 
   // get form data
   const [form, setForm] = useState({
+    code : 0,
     name: "",
     price: "",
     description: "",
@@ -54,6 +55,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
   // handle change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    console.log({ ...form, [e.target.name]: e.target.value });
   };
 
   // handle submit ایجاد محصول
@@ -63,6 +65,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
       await api.post("/products", JSON.stringify(form));
       toast.success("محصول با موفقیت ایجاد شد");
       setForm({
+        code : 0,
         name: "",
         price: "",
         description: "",
@@ -116,6 +119,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                   accept="image/*"
                   hidden
                   multiple
+                  required
                 />
               </label>
             </div>
@@ -148,6 +152,17 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             type="text"
             id="productName"
             placeholder="نام محصول"
+            className="block w-full border border-strok rounded-md p-4  outline-none"
+          />
+          {/* ====================code===================== */}
+          <p className="w-full text-right">کد محصول</p>
+          <input
+            value={form.code}
+            name="code"
+            onChange={(e) => handleChange(e)}
+            type="number"
+            id="productCode"
+            placeholder="کد محصول"
             className="block w-full border border-strok rounded-md p-4  outline-none"
           />
           {/* ====================description===================== */}

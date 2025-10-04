@@ -1,7 +1,18 @@
-import React from "react";
-import { products } from "@/assets/assets";
+import api from "@/lib/axios";
 import { Edit, Trash } from "lucide-react";
-const ProductsList = () => {
+import toast from "react-hot-toast";
+
+const ProductsList = ({ products,getAllProduct }) => {
+  const handleDeleteProduct = async (id) => {
+    try {
+      await api.delete(`/products`, { data: { id } });
+      toast.success("محصول با موفقیت حذف شد");
+      getAllProduct();
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در حذف محصول");
+    }
+  };
   return (
     <div className="max-h-[400px] lg:max-h-[800px] overflow-y-auto mt-4">
       <table className="w-full">
@@ -22,12 +33,21 @@ const ProductsList = () => {
               className="border-b border-strok text-xs md:text-base hover:bg-strok"
             >
               <th className="p-2 text-xs md:text-base ">#{product.code}</th>
-              <th className="p-2 text-xs md:text-base max-w-[80px] truncate">{product.name}</th>
-              <th className="p-2 text-xs md:text-base ">{product.count}</th>
-              <th className="p-2 text-xs md:text-base max-w-[80px] truncate">{product.desc}</th>
-              <th className="p-2 text-xs md:text-base ">{product.price}</th>
+              <th className="p-2 text-xs md:text-base max-w-[80px] truncate">
+                {product.name}
+              </th>
+              <th className="p-2 text-xs md:text-base ">{product.stock}</th>
+              <th className="p-2 text-xs md:text-base max-w-[80px] truncate">
+                {product.description}
+              </th>
+              <th className="p-2 text-xs md:text-base">
+                {new Intl.NumberFormat("fa-IR").format(product.price)}
+                <p className="inline text-sm mr-2">تومان</p>
+              </th>
               <th className="p-2 flex items-center justify-center gap-2">
-                <Trash className="w-4 md:w-6 cursor-pointer" />
+                <button onClick={() => handleDeleteProduct(product._id)}>
+                  <Trash className="w-4 md:w-6 cursor-pointer" />
+                </button>
                 <Edit className="w-4 md:w-6 cursor-pointer" />
               </th>
             </tr>
