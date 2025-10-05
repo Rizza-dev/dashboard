@@ -4,11 +4,16 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const page = () => {
-  const { clearAuth } = useAuthStore();
+  const { clearAuth, user } = useAuthStore();
   const handleLogout = () => {
     clearAuth();
     window.location.href = "/";
   };
+
+  if (user?.role === "admin") {
+    window.location.href = "/admin";
+  }
+
   return (
     <div>
       compelte profile
