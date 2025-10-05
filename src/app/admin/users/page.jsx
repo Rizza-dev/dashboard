@@ -44,7 +44,6 @@ const page = () => {
     <div className="w-full h-screen max-h-[85vh] border border-strok max-w-screen-2xl mx-auto rounded-lg p-6 bg-bg-2 relative">
       <div className="w-full flex items-center justify-between">
         <h1 className="text-4xl">لیست کاربران</h1>
-        <p className="text-xs">تعداد کل کاربران :</p>
       </div>
       <div className="w-full h-full  mt-4 max-h-[600px] overflow-y-auto">
         <table className="w-full mt-4">

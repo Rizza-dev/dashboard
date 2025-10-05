@@ -4,6 +4,7 @@ import { useAuthStore } from "@/store/authStore";
 import { Edit } from "lucide-react";
 import Link from "next/link";
 import api from "@/lib/axios";
+import Loading from "../Loading";
 
 const AdminProfile = () => {
   const [admin, setAdmin] = useState({});
@@ -17,6 +18,10 @@ const AdminProfile = () => {
     const admin = res.data.find((user) => user.role === "admin");
     setAdmin(admin);
   };
+
+  if (!admin) {
+    return <Loading />
+  }
 
   return (
     <div className="flex flex-col w-full h-full items-start justify-center gap-10 lg:mr-4">

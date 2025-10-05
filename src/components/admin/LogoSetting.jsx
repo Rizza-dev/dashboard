@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
+import Loading from "../Loading";
 
 const LogoSetting = () => {
   const [siteName, setSiteName] = useState("");
@@ -33,12 +34,17 @@ const LogoSetting = () => {
       console.log({ logoUrl, siteName });
 
       toast.success("تفییرات با موفقیت انجام شد");
+      window.location.reload();
     } catch (error) {
       toast.error("خطا در ایجاد تفییرات");
       console.log(error);
       return;
     }
   };
+
+  if (!logoUrl) {
+    return <Loading />
+  }
   return (
     <div className="w-full h-full flex flex-col items-center justify-evenly gap-4 py-6 lg:flex-row">
       <div className="w-full flex flex-col items-center">

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
+import Loading from "../Loading";
 
 const MainBanner = () => {
   const [bannerImage, setBannerImage] = useState("");
@@ -11,7 +12,6 @@ const MainBanner = () => {
   const [bannerText2, setBannerText2] = useState("");
   const [CTA, setCTA] = useState("");
   const [uploading, setUploading] = useState(false);
-
 
   useEffect(()=>{
      api.get("/setting").then((res) => {
@@ -38,6 +38,10 @@ const MainBanner = () => {
     setUploading(false);
   };
 
+  if (!bannerImage || !bannerText || !bannerText2 || !CTA) {
+    return <Loading />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -49,6 +53,7 @@ const MainBanner = () => {
         CTA,
       });
       toast.success("تفییران با موفقیت انجام شد");
+      window.location.reload();
     } catch (error) {
       toast.error("خطا در ایجاد تفییرات");
       console.log(error);

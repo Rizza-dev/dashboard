@@ -33,6 +33,10 @@ const page = () => {
     getAllCategory();
   }, []);
 
+  if (!products || !categories) {
+    return <Loading />;
+  }
+
   return (
     <div className="w-full h-full lg:h-[85vh] flex items-center justify-between flex-col lg:flex-row gap-4 relative">
       <div className="bg-bg-2 w-full flex flex-col justify-between flex-2 border border-strok h-full rounded-xl p-4 gap-6">
@@ -46,11 +50,7 @@ const page = () => {
           </button>
         </div>
         <div className=" w-full h-full">
-          {loading ? (
-            <Loading />
-          ) : (
-            <ProductsList {...{ products, getAllProduct }} />
-          )}
+          <ProductsList {...{ products, getAllProduct }} />
         </div>
         <div className="w-full" onClick={() => setCreateProduct(true)}>
           <Button

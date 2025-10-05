@@ -76,10 +76,14 @@ h6 {
 }
 
 .spinner-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   margin: 0;
   background-color: var(--bg-2);
 }

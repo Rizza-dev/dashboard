@@ -1,7 +1,5 @@
 import React from "react";
 const NewUserTable = ({users}) => {
-
-  console.log(users);
   
   return (
     <div className="max-h-64 overflow-y-auto w-full mt-4">

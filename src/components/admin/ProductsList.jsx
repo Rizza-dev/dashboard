@@ -1,8 +1,6 @@
 import api from "@/lib/axios";
 import { Edit, Trash } from "lucide-react";
-import { useState } from "react";
 import toast from "react-hot-toast";
-import CreateProduct from "./CreateProduct";
 import Link from "next/link";
 
 const ProductsList = ({ products, getAllProduct }) => {
