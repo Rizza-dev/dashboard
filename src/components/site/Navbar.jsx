@@ -1,11 +1,24 @@
 "use client";
-import api from "@/lib/axios";
+import { useAuthStore } from "@/store/authStore";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Navbar = ({ logoUrl, siteName }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const { clearAuth, user, checkAuth } = useAuthStore();
+
+  const router = useRouter();
+  useEffect(() => {
+    checkAuth().then((valid) => {
+      if (!valid) {
+        router.replace("/login");
+      }
+    });
+  }, []);
 
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];
@@ -16,13 +29,88 @@ const Navbar = ({ logoUrl, siteName }) => {
   if (!showNavbar) {
     return null;
   }
+
   return (
     <div className="w-full flex justify-between items-center">
-      <ul className="flex items-center justify-center gap-2">
-        <li onClick={() => (window.location.href = "/login")}>
-          <Button primery>ورود</Button>
+      <ul className="flex items-center justify-center gap-2 max-md:hidden">
+        {user ? (
+          <li onClick={() => (window.location.href = "/login")}>
+            <Button primery>ورود</Button>
+          </li>
+        ) : (
+          <li
+            onClick={() => (window.location.href = "/profile/cart")}
+            className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer"
+          >
+            <ShoppingCart size={20} />
+          </li>
+        )}
+        <li onClick={() => (window.location.href = "/")}>
+          <Button>صفحه اصلی</Button>
+        </li>
+        <li onClick={() => (window.location.href = "/store")}>
+          <Button>فروشگاه</Button>
+        </li>
+        <li onClick={() => (window.location.href = "/about-us")}>
+          <Button>درباره ما</Button>
+        </li>
+        <li onClick={() => (window.location.href = "/contact-us")}>
+          <Button>تماس با ما</Button>
         </li>
       </ul>
+      {/* ===================== mobile menu ==================== */}
+      <div
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={`w-full h-full bg-background/10 backdrop-blur-xs absolute top-0 left-0 z-10 ${
+          isMenuOpen ? "opacity-100" : "opacity-0 hidden"
+        }  md:hidden`}
+      />
+      <button
+        className="cursor-pointer md:hidden"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <Menu />
+      </button>
+      <div
+        className={`md:hidden w-3/4 absolute top-0 right-0 bottom-0  ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform ease-in duration-300 h-screen bg-bg-2 z-20`}
+      >
+        <div className="w-full h-full relative">
+          {/* ===================== menu ==================== */}
+          <ul className="flex flex-col items-center justify-center gap-4 h-full">
+            <li onClick={() => (window.location.href = "/")}>
+              <Button>صفحه اصلی</Button>
+            </li>
+            <li onClick={() => (window.location.href = "/store")}>
+              <Button>فروشگاه</Button>
+            </li>
+            <li onClick={() => (window.location.href = "/about-us")}>
+              <Button>درباره ما</Button>
+            </li>
+            <li onClick={() => (window.location.href = "/contact-us")}>
+              <Button>تماس با ما</Button>
+            </li>
+            {user ? (
+              <li onClick={() => (window.location.href = "/login")}>
+                <Button primery>ورود</Button>
+              </li>
+            ) : (
+              <li
+                onClick={() => (window.location.href = "/profile/cart")}
+                className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer"
+              >
+                <ShoppingCart size={20} />
+              </li>
+            )}
+          </ul>
+          {/* ===================== close button ==================== */}
+          <X
+            className="absolute top-4 left-4 cursor-pointer"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          />
+        </div>
+      </div>
       {/* ===================== logo ==================== */}
       <Link href={"/"} className="gap-2 flex items-center justify-center">
         <span className=" md:text-2xl font-bold">{siteName || ""}</span>
@@ -37,7 +125,7 @@ const Button = ({ primery, children }) => {
     <button
       className={`py-1 cursor-pointer px-8 rounded-[4px] ${
         primery ? "bg-[#F2994A]" : "bg-bg-2"
-      } text-lg text-foreground`}
+      } xl:text-lg text-foreground`}
     >
       {children}
     </button>

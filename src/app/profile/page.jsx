@@ -4,7 +4,16 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const page = () => {
-  const { clearAuth, user } = useAuthStore();
+  const { clearAuth, user, checkAuth } = useAuthStore();
+
+  const router = useRouter();
+  useEffect(() => {
+    checkAuth().then((valid) => {
+      if (!valid) {
+        router.replace("/login");
+      }
+    });
+  }, []);
   const handleLogout = () => {
     clearAuth();
     window.location.href = "/";
