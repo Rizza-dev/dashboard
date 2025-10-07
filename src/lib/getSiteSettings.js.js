@@ -5,7 +5,7 @@ let cachedSettings = null;
 export async function getSiteSettings() {
   if (cachedSettings) return cachedSettings;
   await connectDB();
-  const settings = await SiteSettings.findOne();
+  const settings = await SiteSettings.findOne().lean();
   if (!settings) {
     const defaultSettings = await SiteSettings.create({});
     cachedSettings = JSON.parse(JSON.stringify(defaultSettings));

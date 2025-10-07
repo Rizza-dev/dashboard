@@ -9,7 +9,7 @@ const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const { clearAuth, user, checkAuth } = useAuthStore();
+  const { user, checkAuth } = useAuthStore();
 
   const router = useRouter();
   useEffect(() => {
@@ -61,7 +61,7 @@ const Navbar = ({ logoUrl, siteName }) => {
       {/* ===================== mobile menu ==================== */}
       <div
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className={`w-full h-full bg-background/10 backdrop-blur-xs absolute top-0 left-0 z-10 ${
+        className={`w-full h-full bg-background/10 backdrop-blur-xs absolute top-0 left-0 z-40 ${
           isMenuOpen ? "opacity-100" : "opacity-0 hidden"
         }  md:hidden`}
       />
@@ -74,7 +74,7 @@ const Navbar = ({ logoUrl, siteName }) => {
       <div
         className={`md:hidden w-3/4 absolute top-0 right-0 bottom-0  ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform ease-in duration-300 h-screen bg-bg-2 z-20`}
+        } transition-transform ease-in duration-300 h-screen bg-bg-2 z-50`}
       >
         <div className="w-full h-full relative">
           {/* ===================== menu ==================== */}
