@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="FA-IR" dir="rtl">
-      <body className={`${artin.className} `}>
+      <body className={`${artin.className}`}>
         <div className="w-full h-full flex md:gap-4  py-4  px-4">
           <div className="w-fit h-full">
             <SideBar />

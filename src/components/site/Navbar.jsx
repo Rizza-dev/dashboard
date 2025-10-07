@@ -5,26 +5,23 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Navbar = ({ logoUrl, siteName }) => {
-  //   const [logoURL, setLogoURL] = useState("");
-  //   const [siteName, setSiteName] = useState("");
-
-  // PATH
   const pathname = usePathname();
 
-  //   useEffect(() => {
-  //     api.get("/setting").then((res) => {
-  //       setLogoURL(res.data.logoUrl);
-  //       setSiteName(res.data.siteName);
-  //     });
-  //   }, []);
+  // مسیرهایی که Navbar نشون داده نشه
+  const hideNavbarPaths = ["/login"];
+  const hideNavbarWildcard = pathname.startsWith("/admin");
+
+  const showNavbar = !hideNavbarPaths.includes(pathname) && !hideNavbarWildcard;
+  // PATHNAME
+  if (!showNavbar) {
+    return null;
+  }
   return (
     <div className="w-full flex justify-between items-center">
       <ul className="flex items-center justify-center gap-2">
-        {pathname !== "/login" && (
-          <li onClick={() => (window.location.href = "/login")}>
-            <Button primery>ورود</Button>
-          </li>
-        )}
+        <li onClick={() => (window.location.href = "/login")}>
+          <Button primery>ورود</Button>
+        </li>
       </ul>
       {/* ===================== logo ==================== */}
       <Link href={"/"} className="gap-2 flex items-center justify-center">

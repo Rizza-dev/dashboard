@@ -19,10 +19,12 @@ export default async function RootLayout({ children }) {
   const { logoUrl, siteName } = settings;
   return (
     <html lang="FA-IR" dir="rtl">
-      <body className={`${artin.className} space-y-4 p-4`}>
-        <Toaster />
-        <Navbar logoUrl={logoUrl} siteName={siteName} />
-        {children}
+      <body className={`${artin.className}`}>
+        <div className=" space-y-4 p-4">
+          <Toaster />
+          <Navbar logoUrl={logoUrl} siteName={siteName} />
+          {children}
+        </div>
       </body>
     </html>
   );
