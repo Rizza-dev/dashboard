@@ -7,20 +7,22 @@ import Loading from "../Loading";
 
 const MainBanner = () => {
   const [bannerImage, setBannerImage] = useState("");
+  const [bannerMobileImage, setBannerMobileImage] = useState("");
   const [preview, setPreview] = useState(null);
   const [bannerText, setBannerText] = useState("");
   const [bannerText2, setBannerText2] = useState("");
   const [CTA, setCTA] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  useEffect(()=>{
-     api.get("/setting").then((res) => {
+  useEffect(() => {
+    api.get("/setting").then((res) => {
       setBannerImage(res.data.bannerImage);
+      setBannerMobileImage(res.data.bannerMobileImage);
       setBannerText(res.data.bannerText);
       setBannerText2(res.data.bannerText2);
       setCTA(res.data.CTA);
     });
-  },[])
+  }, []);
 
   const handleUpload = async (e) => {
     setUploading(true);
@@ -37,17 +39,31 @@ const MainBanner = () => {
     setBannerImage(res.data.url);
     setUploading(false);
   };
+  const handleUploadMobileBanner = async (e) => {
+    setUploading(true);
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
 
-  if (!bannerImage || !bannerText || !bannerText2 || !CTA) {
-    return <Loading />;
-  }
+    const res = await api.post("/setting/upload", formData);
+
+    setBannerMobileImage(res.data.url);
+    setUploading(false);
+  };
+
+  // if (!bannerImage || !bannerText || !bannerText2 || !CTA) {
+  //   return <Loading />;
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       await api.post("/setting", {
         bannerImage,
+        bannerMobileImage,
         bannerText,
         bannerText2,
         CTA,
@@ -63,20 +79,38 @@ const MainBanner = () => {
 
   return (
     <div className="w-full h-full flex flex-col 2xl:flex-row items-center justify-center gap-4">
-      <div className="flex flex-col items-center justify-center w-full h-full gap-4 ">
-        <h4 className="text-xl">بنر اصلی</h4>
+      <div className="flex flex-col lg:flex-row 2xl:flex-col items-center justify-center w-full h-full gap-4 ">
+        <h4 className="text-xl">بنر حالت دسکتاپ</h4>
         <label
           htmlFor="mainBanner"
-          className=" relative aspect-video w-[192px] h-[108px] lg:w-[384px] lg:h-[216px] rounded-md overflow-hidden object-center"
+          className=" relative aspect-video w-[192px] h-[108px] lg:w-[384px] lg:h-[216px] rounded-md overflow-hidden "
         >
           <img
             src={bannerImage || preview || "/upload.png"}
-            className="absolute inset-0 m-auto"
+            className="absolute inset-0 m-auto object-fill"
             alt=""
           />
           <input
             onChange={handleUpload}
             id="mainBanner"
+            type="file"
+            accept="image/*"
+            hidden
+          />
+        </label>
+        <h4 className="text-xl">بنر حالت موبایل</h4>
+        <label
+          htmlFor="bannerMobileImage"
+          className=" relative aspect-[9/16] h-[192px] w-[108px] rounded-md overflow-hidden "
+        >
+          <img
+            src={bannerMobileImage || "/upload.png"}
+            className="absolute inset-0 m-auto object-fill object-center"
+            alt=""
+          />
+          <input
+            onChange={handleUploadMobileBanner}
+            id="bannerMobileImage"
             type="file"
             accept="image/*"
             hidden

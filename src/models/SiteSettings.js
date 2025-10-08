@@ -11,6 +11,7 @@ const SiteSettingsSchema = new mongoose.Schema({
     default: "/logo.png",
   },
   bannerImage: { type: String, default: "" },
+  bannerMobileImage: { type: String, default: "" },
   bannerText: { type: String, default: "" },
   bannerText2: { type: String, default: "" },
   CTA: { type: String, default: "مشاهده محصولات" },

@@ -9,7 +9,7 @@ import { useState } from "react";
 const page = () => {
   const [activeTab, setActiveTab] = useState("mainBanner");
   return (
-    <div className="flex w-full bg-bg-2 h-screen max-h-[85vh] border border-strok rounded-xl items-center justify-center p-2 lg:p-6 relative">
+    <div className="flex w-full bg-bg-2 h-full min-h-[85vh] border border-strok rounded-xl items-center justify-center p-2 lg:p-6 relative">
       <div className="w-full h-full flex-1 gap-8 flex flex-col border-l border-strok p-2 justify-center ">
         <div onClick={() => setActiveTab("mainBanner")}>
           <Button
