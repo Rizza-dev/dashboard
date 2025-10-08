@@ -2,23 +2,14 @@
 import { useAuthStore } from "@/store/authStore";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
 const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const { user, checkAuth } = useAuthStore();
-
-  const router = useRouter();
-  useEffect(() => {
-    checkAuth().then((valid) => {
-      if (!valid) {
-        router.replace("/login");
-      }
-    });
-  }, []);
+  const { user } = useAuthStore();
 
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];
@@ -33,29 +24,30 @@ const Navbar = ({ logoUrl, siteName }) => {
   return (
     <div className="w-full flex justify-between items-center">
       <ul className="flex items-center justify-center gap-2 max-md:hidden">
-        {user ? (
-          <li onClick={() => (window.location.href = "/login")}>
-            <Button primery>ورود</Button>
+        {user === null ? (
+          <li>
+            <Button to={"/login"} primery>
+              عضویت
+            </Button>
           </li>
         ) : (
-          <li
-            onClick={() => (window.location.href = "/profile/cart")}
-            className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer"
-          >
-            <ShoppingCart size={20} />
+          <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
+            <Link href={"/profile/cart"}>
+              <ShoppingCart size={20} />
+            </Link>
           </li>
         )}
-        <li onClick={() => (window.location.href = "/")}>
-          <Button>صفحه اصلی</Button>
+        <li>
+          <Button to={"/"}>صفحه اصلی</Button>
         </li>
-        <li onClick={() => (window.location.href = "/store")}>
-          <Button>فروشگاه</Button>
+        <li>
+          <Button to={"/products"}>فروشگاه</Button>
         </li>
-        <li onClick={() => (window.location.href = "/about-us")}>
-          <Button>درباره ما</Button>
+        <li>
+          <Button to={"/about-us"}>درباره ما</Button>
         </li>
-        <li onClick={() => (window.location.href = "/contact-us")}>
-          <Button>تماس با ما</Button>
+        <li>
+          <Button to={"/contact-us"}>تماس با ما</Button>
         </li>
       </ul>
       {/* ===================== mobile menu ==================== */}
@@ -79,28 +71,29 @@ const Navbar = ({ logoUrl, siteName }) => {
         <div className="w-full h-full relative">
           {/* ===================== menu ==================== */}
           <ul className="flex flex-col items-center justify-center gap-4 h-full">
-            <li onClick={() => (window.location.href = "/")}>
-              <Button>صفحه اصلی</Button>
+            <li>
+              <Button to={"/"}>صفحه اصلی</Button>
             </li>
-            <li onClick={() => (window.location.href = "/store")}>
-              <Button>فروشگاه</Button>
+            <li>
+              <Button to={"/products"}>فروشگاه</Button>
             </li>
-            <li onClick={() => (window.location.href = "/about-us")}>
-              <Button>درباره ما</Button>
+            <li>
+              <Button to={"/about-us"}>درباره ما</Button>
             </li>
-            <li onClick={() => (window.location.href = "/contact-us")}>
-              <Button>تماس با ما</Button>
+            <li>
+              <Button to={"/contact-us"}>تماس با ما</Button>
             </li>
-            {user ? (
-              <li onClick={() => (window.location.href = "/login")}>
-                <Button primery>ورود</Button>
+            {user === null ? (
+              <li>
+                <Button to={"/login"} primery>
+                  عضویت
+                </Button>
               </li>
             ) : (
-              <li
-                onClick={() => (window.location.href = "/profile/cart")}
-                className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer"
-              >
-                <ShoppingCart size={20} />
+              <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
+                <Link href={"/profile/cart"}>
+                  <ShoppingCart size={20} />
+                </Link>
               </li>
             )}
           </ul>
@@ -120,15 +113,16 @@ const Navbar = ({ logoUrl, siteName }) => {
   );
 };
 
-const Button = ({ primery, children }) => {
+const Button = ({ primery, children, to }) => {
   return (
-    <button
+    <Link
+      href={to}
       className={`py-1 cursor-pointer px-8 rounded-[4px] ${
         primery ? "bg-[#F2994A]" : "bg-bg-2"
       } xl:text-lg text-foreground`}
     >
       {children}
-    </button>
+    </Link>
   );
 };
 

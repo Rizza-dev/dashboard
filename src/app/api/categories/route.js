@@ -21,7 +21,7 @@ export async function POST(req) {
     await connectDB();
     const body = await req.json();
 
-    const { name, slug, description } = body;
+    const { name, slug, description , image } = body;
     if ((!name, !slug)) {
       return NextResponse.json(
         { message: "لطفا نام و آدرس دسته بندی را وارد کنید" },
@@ -35,7 +35,7 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    const newCategory = await Category.create({ name, slug, description });
+    const newCategory = await Category.create({ name, slug, description , image });
 
     return NextResponse.json(newCategory, { status: 201 });
   } catch (error) {

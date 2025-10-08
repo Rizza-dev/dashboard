@@ -12,7 +12,7 @@ const MainBannerHomePage = ({
     <picture className="w-full sm:aspect-video aspect-[9/16] block relative rounded-sm md:rounded-lg overflow-hidden">
       <source
         media="(max-width: 640px)"
-        srcSet={bannerMobileImage || "/mobile-banner.png"}
+        srcSet={bannerMobileImage}
       />
       <img
         className="w-full h-full object-cover"
