@@ -12,7 +12,6 @@ const SocialMedia = () => {
 
   useEffect(() => {
     api.get("/setting").then((res) => {
-      console.log(res);
 
       setInstagram(res.data.socialLinks.instagram);
       setTelegram(res.data.socialLinks.telegram);

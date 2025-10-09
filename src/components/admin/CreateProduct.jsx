@@ -58,7 +58,6 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
   // handle change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log({ ...form, [e.target.name]: e.target.value });
   };
 
   // handle submit ایجاد محصول

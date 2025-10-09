@@ -3,6 +3,7 @@ import { artin } from "../assets/fonts/font.js";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/site/Navbar";
 import { getSiteSettings } from "@/lib/getSiteSettings.js";
+import Footer from "@/components/site/Footer";
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }) {
           <Toaster />
           <Navbar logoUrl={logoUrl} siteName={siteName} />
           {children}
+          <Footer />
         </div>
       </body>
     </html>

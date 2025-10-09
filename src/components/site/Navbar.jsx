@@ -71,26 +71,26 @@ const Navbar = ({ logoUrl, siteName }) => {
         <div className="w-full h-full relative">
           {/* ===================== menu ==================== */}
           <ul className="flex flex-col items-center justify-center gap-4 h-full">
-            <li>
+            <li onClick={()=>setIsMenuOpen(false)}>
               <Button to={"/"}>صفحه اصلی</Button>
             </li>
-            <li>
+            <li onClick={()=>setIsMenuOpen(false)}>
               <Button to={"/products"}>فروشگاه</Button>
             </li>
-            <li>
+            <li onClick={()=>setIsMenuOpen(false)}>
               <Button to={"/about-us"}>درباره ما</Button>
             </li>
-            <li>
+            <li onClick={()=>setIsMenuOpen(false)}>
               <Button to={"/contact-us"}>تماس با ما</Button>
             </li>
             {user === null ? (
-              <li>
+              <li onClick={()=>setIsMenuOpen(false)}>
                 <Button to={"/login"} primery>
                   عضویت
                 </Button>
               </li>
             ) : (
-              <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
+              <li onClick={()=>setIsMenuOpen(false)} className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
                 <Link href={"/profile/cart"}>
                   <ShoppingCart size={20} />
                 </Link>

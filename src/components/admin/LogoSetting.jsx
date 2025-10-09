@@ -31,7 +31,6 @@ const LogoSetting = () => {
     e.preventDefault();
     try {
       await api.post("/setting", { logoUrl, siteName });
-      console.log({ logoUrl, siteName });
 
       toast.success("تفییرات با موفقیت انجام شد");
       window.location.reload();

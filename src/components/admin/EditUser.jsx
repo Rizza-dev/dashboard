@@ -11,7 +11,6 @@ const EditUser = ({ user }) => {
   const navigate = useParams();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log({ ...form, [e.target.name]: e.target.value });
   };
   const handleSubmit = async () => {
     try {
