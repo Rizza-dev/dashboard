@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="FA-IR" dir="rtl">
       <body className={`${artin.className}`}>
-        <div className=" space-y-4 p-4">
+        <div className=" space-y-4 p-4 w-full h-full">
           <Toaster />
           <Navbar logoUrl={logoUrl} siteName={siteName} />
           {children}

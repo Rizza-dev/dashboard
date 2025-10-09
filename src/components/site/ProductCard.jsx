@@ -5,7 +5,7 @@ import React from "react";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] mt-[64px] rounded-lg overflow-hidden">
+    <div className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] rounded-lg overflow-hidden">
       <Image
         fill
         src={product.images[0]}

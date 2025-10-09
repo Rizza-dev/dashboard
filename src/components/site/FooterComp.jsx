@@ -27,7 +27,7 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
     return null;
   }
   return (
-    <div className="w-full py-10 bg-bg-2 rounded-md px-4 sm:px-[3vw] md:px-[5vw] lg:px-[9vw]">
+    <div className="w-full h-full py-10 bg-bg-2 rounded-md px-4 sm:px-[3vw] md:px-[5vw] lg:px-[9vw] mt-10">
       <div className="w-full h-full flex gap-10 flex-col md:flex-row items-center justify-between ">
         <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-0">
           <Link href="/rules" className="flex items-center gap-2">

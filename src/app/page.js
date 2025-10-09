@@ -26,7 +26,7 @@ export default async function HomePage() {
       />
       <HomePageCategories categoryList={categoryList} />
       <div className="w-full h-full mb-20">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b border-strok pb-4">
           <p className="text-base md:text-[24px] lg:text-[32px] xl:text-[40px]">
             لوازم آشپزخانه لوکس برای هر آشپزخانه
           </p>
@@ -34,7 +34,7 @@ export default async function HomePage() {
             <p className="text-base md:text-lg lg:text-2xl xl:text-3xl ">همه محصولات</p><ArrowLeftCircle className="w-4 md:w-5 lg:w-6 " />
           </Link>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4 2xl:gap-6 justify-items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4 2xl:gap-6 justify-items-center my-6">
           {
             productList.slice(0, 8).map((product, index) => (
               <ProductCard key={index} product={product} />
