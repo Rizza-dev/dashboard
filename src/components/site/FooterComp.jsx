@@ -28,31 +28,31 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
   }
   return (
     <div className="w-full h-full py-10 bg-bg-2 rounded-md px-4 sm:px-[3vw] md:px-[5vw] lg:px-[9vw] mt-10">
-      <div className="w-full h-full flex gap-10 flex-col md:flex-row items-center justify-between ">
-        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-0">
+      <div className="w-full h-full gap-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center">
+        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-l-[0.5px] md:border-0">
           <Link href="/rules" className="flex items-center gap-2">
             <Handshake size={20} />
-            <p className="text-xl text-nowrap lg:text-2xl">قوانین و مقررات</p>
+            <p className="text-xl text-nowrap 2xl:text-2xl">قوانین و مقررات</p>
           </Link>
           <Link href="/guides" className="flex items-center gap-2">
             <Info size={20} />
-            <p className="text-xl text-nowrap lg:text-2xl">
+            <p className="text-xl text-nowrap 2xl:text-2xl">
               راهنمای قبل از خرید
             </p>
           </Link>
           <Link href="/profile/orders" className="flex items-center gap-2">
             <Truck size={20} />
-            <p className="text-xl text-nowrap lg:text-2xl">پیگیری سفارشات</p>
+            <p className="text-xl text-nowrap 2xl:text-2xl">پیگیری سفارشات</p>
           </Link>
         </div>
-        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-0">
+        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] xl:border-l-[0.5px] md:border-0">
           <Link href="/location" className="flex items-center gap-2">
             <LocationEdit size={20} />
-            <p className="text-xl text-nowrap lg:text-2xl">آدرس فروشگاه</p>
+            <p className="text-xl text-nowrap 2xl:text-2xl">آدرس فروشگاه</p>
           </Link>
           <div className="flex items-center gap-2">
             <Headset size={20} />
-            <p className="text-xl text-nowrap lg:text-2xl">
+            <p className="text-xl text-nowrap 2xl:text-2xl">
               اطلاعات تماس و پشتیبانی
             </p>
           </div>
@@ -67,7 +67,7 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
             </div>
           </div>
         </div>
-        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-0">
+        <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-l-[0.5px] md:border-0">
           <div className="flex items-center gap-2">
             <EarthIcon size={20} />
             <p className="text-xl text-nowrap lg:text-2xl">شبکه های اجتماعی</p>
@@ -104,7 +104,7 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
         </div>
         <Link
           href="/"
-          className="w-full h-full flex flex-col items-center  justify-center "
+          className="w-full h-full flex flex-col items-center justify-center "
         >
           <Image src={logoUrl} width={80} height={80} alt="logo" />
           <p className="text-xl text-nowrap lg:text-2xl">{siteName}</p>

@@ -18,10 +18,10 @@ const ProductCard = ({ product }) => {
       />
       <Link href={`/product/${product._id}`}>
         <div className="w-[95%] hover:scale-95 transition-all ease-in duration-100 mx-auto h-fit absolute bottom-2 lg:bottom-4 right-0 left-0 flex items-center justify-between px-2 py-4 md:py-4 border-[0.5px] border-white/30 bg-bg-2/30 backdrop-blur-sm rounded-lg z-20">
-          <p className="text-sm md:text-base xl:text-lg 2xl:text-xl text-nowrap max-w-1/2 md:w-full truncate">
+          <p className="text-base xl:text-lg 2xl:text-xl text-nowrap max-w-1/2 md:w-full truncate">
             {product.name}
           </p>
-          <p className="text-base xl:text-xl 2xl:text-2xl text-nowrap">
+          <p className="text-xl 2xl:text-2xl text-nowrap">
             {new Intl.NumberFormat("fa-IR").format(product.price)} تومان
           </p>
         </div>

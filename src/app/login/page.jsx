@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const page = () => {
-  const { token, setAuth, user } = useAuthStore();
+  const { setAuth } = useAuthStore();
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");

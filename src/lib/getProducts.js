@@ -1,8 +1,7 @@
 import Product from "@/models/Product";
 import { connectDB } from "./mongodb";
-import Category from "@/models/Category";
 
-export async function getProducts(slug) {
+export async function getProducts() {
   await connectDB();
 
   const products = await Product.find().lean();

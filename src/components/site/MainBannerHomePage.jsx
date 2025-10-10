@@ -1,4 +1,5 @@
 import { ArrowDownCircle } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const MainBannerHomePage = ({
@@ -24,7 +25,7 @@ const MainBannerHomePage = ({
         <div className="w-full h-1/2 flex items-center justify-center md:justify-start sm:w-1/2 flex-col">
             <h1 className="text-[32px] lg:text-[40px] 2xl:text-[48px] font-bold tracking-widest">{bannerText}</h1>
             <h2 className="mt-4 md:mt-10 text-lg  lg:text-2xl tracking-widest font-thin">{bannerText2}</h2>
-            <button  className="flex items-center justify-center gap-2 mt-6 md:mt-10 cursor-pointer hover:scale-110 transition-all ease-in duration-100">{CTA}<ArrowDownCircle className="w-4 lg:w-6" /></button>
+            <Link href={"#products"} className="flex items-center justify-center gap-2 mt-6 md:mt-10 cursor-pointer hover:scale-110 transition-all ease-in duration-100">{CTA}<ArrowDownCircle className="w-4 lg:w-6" /></Link>
         </div>
       </div>
     </picture>

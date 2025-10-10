@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Button from "./Button";
-import { useAuthStore } from "@/store/authStore";
 import { Edit } from "lucide-react";
 import Link from "next/link";
 import api from "@/lib/axios";
@@ -8,7 +7,6 @@ import Loading from "../Loading";
 
 const AdminProfile = () => {
   const [admin, setAdmin] = useState({});
-  const { user } = useAuthStore();
   useEffect(() => {
     findAdmin();
   }, []);

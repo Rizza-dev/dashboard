@@ -3,13 +3,17 @@ import { useAuthStore } from "@/store/authStore";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const { user } = useAuthStore();
+  const { user , checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];
@@ -83,6 +87,13 @@ const Navbar = ({ logoUrl, siteName }) => {
             <li onClick={()=>setIsMenuOpen(false)}>
               <Button to={"/contact-us"}>تماس با ما</Button>
             </li>
+            {
+              user !== null && (
+                <li onClick={()=>setIsMenuOpen(false)}>
+                  <Button to={"/admin"}>{user?.role === "admin" ? "پنل مدیریت" : "پروفایل"}</Button>
+                </li>
+              )
+            }
             {user === null ? (
               <li onClick={()=>setIsMenuOpen(false)}>
                 <Button to={"/login"} primery>
@@ -91,7 +102,7 @@ const Navbar = ({ logoUrl, siteName }) => {
               </li>
             ) : (
               <li onClick={()=>setIsMenuOpen(false)} className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
-                <Link href={"/profile/cart"}>
+                <Link href={"/profile/cart"}> 
                   <ShoppingCart size={20} />
                 </Link>
               </li>
@@ -106,8 +117,8 @@ const Navbar = ({ logoUrl, siteName }) => {
       </div>
       {/* ===================== logo ==================== */}
       <Link href={"/"} className="gap-2 flex items-center justify-center">
-        <span className=" md:text-2xl font-bold">{siteName || ""}</span>
-        <img src={logoUrl || ""} alt="logo" className="w-4 md:w-6" />
+        <span className="text-2xl md:text-3xl">{siteName || ""}</span>
+        <img src={logoUrl || ""} alt="logo" className="w-5 md:w-6" />
       </Link>
     </div>
   );
