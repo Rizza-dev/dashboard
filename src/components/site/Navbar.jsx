@@ -1,6 +1,6 @@
 "use client";
 import { useAuthStore } from "@/store/authStore";
-import { Menu, ShoppingCart, X } from "lucide-react";
+import { Menu, ShoppingCart, UserCircle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -9,7 +9,9 @@ const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const { user , checkAuth } = useAuthStore();
+  const { user, checkAuth } = useAuthStore();
+
+  const cart = 0;
 
   useEffect(() => {
     checkAuth();
@@ -35,10 +37,16 @@ const Navbar = ({ logoUrl, siteName }) => {
             </Button>
           </li>
         ) : (
-          <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
+          <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer relative flex items-center justify-center gap-4">
             <Link href={"/profile/cart"}>
               <ShoppingCart size={20} />
             </Link>
+            <Link href={"/profile"}>
+              <UserCircle size={20} />
+            </Link>
+            <span className="absolute -top-2 text-background -right-2 px-2 rounded-full  bg-foreground ">
+              {cart.length || 0}
+            </span>
           </li>
         )}
         <li>
@@ -75,36 +83,42 @@ const Navbar = ({ logoUrl, siteName }) => {
         <div className="w-full h-full relative">
           {/* ===================== menu ==================== */}
           <ul className="flex flex-col items-center justify-center gap-4 h-full">
-            <li onClick={()=>setIsMenuOpen(false)}>
+            <li onClick={() => setIsMenuOpen(false)}>
               <Button to={"/"}>صفحه اصلی</Button>
             </li>
-            <li onClick={()=>setIsMenuOpen(false)}>
+            <li onClick={() => setIsMenuOpen(false)}>
               <Button to={"/products"}>فروشگاه</Button>
             </li>
-            <li onClick={()=>setIsMenuOpen(false)}>
+            <li onClick={() => setIsMenuOpen(false)}>
               <Button to={"/about-us"}>درباره ما</Button>
             </li>
-            <li onClick={()=>setIsMenuOpen(false)}>
+            <li onClick={() => setIsMenuOpen(false)}>
               <Button to={"/contact-us"}>تماس با ما</Button>
             </li>
-            {
-              user !== null && (
-                <li onClick={()=>setIsMenuOpen(false)}>
-                  <Button to={"/admin"}>{user?.role === "admin" ? "پنل مدیریت" : "پروفایل"}</Button>
-                </li>
-              )
-            }
+            {user !== null && (
+              <li onClick={() => setIsMenuOpen(false)}>
+                <Button to={"/admin"}>
+                  {user?.role === "admin" ? "پنل مدیریت" : "پروفایل"}
+                </Button>
+              </li>
+            )}
             {user === null ? (
-              <li onClick={()=>setIsMenuOpen(false)}>
+              <li onClick={() => setIsMenuOpen(false)}>
                 <Button to={"/login"} primery>
                   عضویت
                 </Button>
               </li>
             ) : (
-              <li onClick={()=>setIsMenuOpen(false)} className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer">
-                <Link href={"/profile/cart"}> 
+              <li
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer relative"
+              >
+                <Link href={"/profile/cart"}>
                   <ShoppingCart size={20} />
                 </Link>
+                <span className="absolute -top-2 text-background -right-2 px-2 rounded-full  bg-foreground ">
+                  {cart.length || 0}
+                </span>
               </li>
             )}
           </ul>

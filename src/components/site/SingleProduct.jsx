@@ -1,20 +1,41 @@
 "use client";
-import { Minus, MinusCircle, PlusCircle } from "lucide-react";
+import api from "@/lib/axios";
+import { useAuthStore } from "@/store/authStore";
+import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const SingleProduct = ({ product }) => {
   const [mainImage, setMainImage] = useState(product.images[0]);
+  const [quantity, setQuantity] = useState(1);
+  const { user } = useAuthStore();
 
-  // console.log(product);
-
-  // useEffect(() => {
-  //     setMainImage(product.images[0] || "");
-  // }, [product]);
+  const handleAddToCart = async () => {
+    try {
+      if (user === null) {
+        return toast.error("لطفا وارد حساب کاربری خود شوید");
+      }
+      await api.post("/cart", {
+        userId: user._id,
+        product: {
+          productId: product._id,
+          title: product.name,
+          price: product.price,
+          quantity: quantity,
+          image: product.images[0],
+        },
+      });
+      toast.success("محصول با موفقیت به سبد خرید اضافه شد");
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در اضافه کردن محصول به سبد خرید");
+    }
+  };
 
   return (
-    <div className="w-full h-full">
-      <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-6 gap-y-6">
+    <div className="w-full h-full sm:px-[3vw] md:px-[5vw] lg:px-[9vw] lg:mt-10">
+      <div className="w-full h-full grid grid-cols-1 xl:grid-cols-2 gap-6 gap-y-6">
         <div className="w-full h-full flex flex-col items-center justify-center gap-4 rounded-md py-8 border-strok border">
           <div className="relative w-[90%] h-full flex-6 aspect-[3/4] max-w-[500px] rounded-md overflow-hidden">
             <Image
@@ -41,25 +62,29 @@ const SingleProduct = ({ product }) => {
             ))}
           </div>
         </div>
-        <div className="w-full h-full rounded-md py-8 border-strok border flex gap-8 flex-col items-start px-4 md:px-8 lg: justify-start">
+        <div className="w-full h-full rounded-md py-8 border-strok border flex gap-8 flex-col items-start px-4 md:px-8 lg:justify-around">
           <div>
             <h1 className="text-[40px]">{product.name}</h1>
             <p className="text-[20px] mt-6">{product.description}</p>
           </div>
           <div>
             <label htmlFor="quantity">تعداد</label>
-            <div className="flex gap-2 items-center justify-center border p-4 border-strok mt-6">
-              <button>
+            <div className="flex gap-2 items-center justify-center border p-3 border-strok mt-6">
+              <button onClick={() => setQuantity(quantity + 1)}>
                 <PlusCircle className="w-6 h-6 cursor-pointer" />
               </button>
               <input
+                onChange={() => setQuantity(quantity)}
+                value={quantity}
                 className="max-w-[48px] text-center outline-none bg-transparent"
-                placeholder="0"
-                type="text"
+                min="1"
+                type="number"
                 name="quantity"
                 id="quantity"
               />
-              <button>
+              <button
+                onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
+              >
                 <MinusCircle className="w-6 h-6 cursor-pointer" />
               </button>
             </div>
@@ -69,7 +94,12 @@ const SingleProduct = ({ product }) => {
             {" "}
             {new Intl.NumberFormat("fa-IR").format(product.price)} تومان
           </p>
-          <button className="w-full hover:scale-95 transition-all ease-in duration-100 cursor-pointer rounded-md lg:max-w-[260px] py-4 bg-foreground text-background">افزودن به سبد</button>
+          <button
+            onClick={() => handleAddToCart()}
+            className="w-full hover:scale-95 transition-all ease-in duration-100 cursor-pointer rounded-md lg:max-w-[260px] py-4 bg-foreground text-background"
+          >
+            افزودن به سبد
+          </button>
         </div>
       </div>
     </div>

@@ -1,16 +1,18 @@
 "use client";
 import { useAuthStore } from "@/store/authStore";
+import { useCartStore } from "@/store/useCartStore";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const page = () => {
   const { clearAuth, user, checkAuth } = useAuthStore();
-
+  const { clearCart } = useCartStore();
   const router = useRouter();
   useEffect(() => {
     checkAuth().then((valid) => {
       if (!valid) {
         router.replace("/login");
+        clearCart();
       }
     });
   }, []);
