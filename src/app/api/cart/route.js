@@ -4,19 +4,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET; // 👈 حتماً در .env تنظیم کن
 
-// ✅ گرفتن userId از توکن کوکی
-// function getUserIdFromToken() {
-//   const token = cookies().get("accessToken")?.value;
-//   if (!token) return null;
-//   try {
-//     const decoded = jwt.verify(token, JWT_SECRET);
-//     return decoded.userId;
-//   } catch (err) {
-//     return null;
-//   }
-// }
 export async function GET() {
   await connectDB();
   const cookiesStore = cookies();

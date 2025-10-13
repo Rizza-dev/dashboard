@@ -1,32 +1,23 @@
 "use client";
-import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
+import { useCartStore } from "@/store/useCartStore";
 import { Menu, ShoppingCart, UserCircle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const Navbar = ({ logoUrl, siteName , cartLength }) => {
+const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  // const [cart, setCart] = useState(0);
   const { user, checkAuth } = useAuthStore();
-  // const { cart } = useCartStore();
-
-  // const getProduct = async () => {
-  //   await api.get("/cart/").then((res) => {
-  //     setCart(res.data.items.length);
-  //     console.log(res.data.items);
-  //   });
-  // };
+  const { cartLength, getCartLength } = useCartStore();
 
   useEffect(() => {
     checkAuth();
-  }, []);
-
-  // useEffect(() => {
-  //   getProduct();
-  // }, []);
+    if (user) {
+      getCartLength();
+    }
+  }, [user]);
 
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];

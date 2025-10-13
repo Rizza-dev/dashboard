@@ -11,8 +11,7 @@ const SingleProduct = ({ product }) => {
   const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState(1);
   const { user, checkAuth } = useAuthStore();
-  const { addToCart } = useCartStore();
-
+  const { getCartLength } = useCartStore();
   useEffect(() => {
     checkAuth();
   }, []);
@@ -32,7 +31,7 @@ const SingleProduct = ({ product }) => {
           image: product.images[0],
         },
       });
-      addToCart(product, quantity);
+      await getCartLength();
       toast.success("محصول با موفقیت به سبد خرید اضافه شد");
     } catch (error) {
       console.log(error);
@@ -56,7 +55,7 @@ const SingleProduct = ({ product }) => {
             {product.images.map((image, index) => (
               <div
                 key={index}
-                className="relative aspect-square w-[100px] h-[100px] rounded-sm overflow-hidden"
+                className="relative aspect-square w-[80px] h-[80px] md:w-[100px] md:h-[100px]  rounded-sm overflow-hidden"
               >
                 <Image
                   src={image}
@@ -71,8 +70,10 @@ const SingleProduct = ({ product }) => {
         </div>
         <div className="w-full h-full rounded-md py-8 border-strok border flex gap-8 flex-col items-start px-4 md:px-8 lg:justify-around">
           <div>
-            <h1 className="text-[40px]">{product.name}</h1>
-            <p className="text-[20px] mt-6">{product.description}</p>
+            <h1 className="md:text-[40px] text-3xl">{product.name}</h1>
+            <p className="text-base leading-16 md:text-[24px] max-w-[250px] text-wrap  mt-6">
+              {product.description}
+            </p>
           </div>
           <div>
             <label htmlFor="quantity">تعداد</label>

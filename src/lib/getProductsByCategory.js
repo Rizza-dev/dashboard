@@ -12,5 +12,5 @@ export const getProductsByCategory = async (slug) => {
     .populate("category", "name slug")
     .lean();
 
-  return products;
+  return JSON.parse(JSON.stringify(products));
 };

@@ -1,6 +1,7 @@
 "use client";
 import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
+import { useCartStore } from "@/store/useCartStore";
 import { Info, MinusCircle, PlusCircle, Trash } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -8,6 +9,7 @@ import toast from "react-hot-toast";
 const page = () => {
   const { checkAuth, user } = useAuthStore();
   const [cart, setCart] = useState([]);
+  const { getCartLength } = useCartStore();
   useEffect(() => {
     checkAuth();
   }, []);
@@ -34,6 +36,7 @@ const page = () => {
       if (res.status === 200) {
         toast.success("کالا با موفقیت حذف شد ✅");
         await getProduct(); // بعد از حذف، سبد خرید را مجدداً لود کن
+        await getCartLength();
       } else {
         toast.error("خطایی در حذف کالا رخ داد");
       }
@@ -81,14 +84,14 @@ const page = () => {
               <th className="border-b border-strok py-4 text-xs xl:text-base">
                 نام محصول
               </th>
-              <th className="border-b border-strok py-4 text-xs xl:text-base xl:text-start">
+              <th className="border-b border-strok py-4 text-xs xl:text-base text-start">
                 تعداد
               </th>
-              <th className="border-b border-strok py-4 text-xs xl:text-base">
+              <th className="border-b border-strok py-4 text-xs xl:text-base hidden md:table-cell">
                 قیمت
               </th>
               <th className="border-b border-strok py-4 text-xs xl:text-base">
-                قیمت کل
+                مجموع
               </th>
               <th className="border-b border-strok py-4 text-xs xl:text-base pl-4">
                 حذف
@@ -99,7 +102,7 @@ const page = () => {
             {cart.map((item) => (
               <tr key={item._id}>
                 <th className="py-4">
-                  <div className=" pr-2 flex items-center gap-1 md:gap-2  max-md:max-w-[150px]">
+                  <div className=" pr-2 flex items-center gap-1 md:gap-2  max-md:max-w-[120px]">
                     <div className="aspect-square w-10 h-10 relative object-fill rounded-full object-center overflow-hidden">
                       <img
                         src={item.image}
@@ -110,17 +113,17 @@ const page = () => {
                     <p className="text-xs truncate">{item.title}</p>
                   </div>
                 </th>
-                <th className="py-4 text-sm ">
-                  <div className="py-2 max-w-40 border rounded-sm border-strok flex items-center justify-between px-2 lg:px-4 ">
+                <th className="py-4 text-sm">
+                  <div className="py-1 md:py-2 max-w-40 border rounded-sm border-strok flex items-center justify-between gap-1 md:gap-2 px-2 md:px-4 ml-4">
                     <button
                       onClick={() =>
                         updateQuantity(item.productId, item.quantity + 1)
                       }
                       className="cursor-pointer"
                     >
-                      <PlusCircle size={16} />
+                      <PlusCircle className="w-4" />
                     </button>
-                    {item.quantity}
+                    <p className="text-xs md:text-base">{item.quantity}</p>
                     <button
                       onClick={() =>
                         updateQuantity(item.productId, item.quantity - 1)
@@ -128,11 +131,11 @@ const page = () => {
                       disabled={item.quantity <= 1}
                       className="cursor-pointer"
                     >
-                      <MinusCircle size={16} />
+                      <MinusCircle className="w-4" />
                     </button>
                   </div>
                 </th>
-                <th className="py-4 text-sm">
+                <th className="py-4 text-sm hidden md:table-cell">
                   {new Intl.NumberFormat("fa-IR").format(item.price)}
                 </th>
                 <th className="py-4 text-sm">

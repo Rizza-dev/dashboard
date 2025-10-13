@@ -4,7 +4,6 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/site/Navbar";
 import { getSiteSettings } from "@/lib/getSiteSettings.js";
 import Footer from "@/components/site/Footer";
-import { getCartLength } from "@/lib/getCartLength";
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
@@ -16,17 +15,15 @@ export async function generateMetadata() {
   };
 }
 
-
 export default async function RootLayout({ children }) {
   const settings = await getSiteSettings();
   const { logoUrl, siteName } = settings;
-  const cartLength = await getCartLength();
   return (
     <html lang="FA-IR" dir="rtl">
       <body className={`${artin.className}`}>
         <div className=" space-y-4 p-4 w-full h-full">
           <Toaster />
-          <Navbar cartLength={cartLength} logoUrl={logoUrl} siteName={siteName} />
+          <Navbar logoUrl={logoUrl} siteName={siteName} />
           {children}
           <Footer />
         </div>

@@ -10,12 +10,10 @@ import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
   const { user, checkAuth } = useAuthStore();
-
+  const { getCartLength } = useCartStore();
   useEffect(() => {
     checkAuth();
   }, []);
-
-  const { addToCart } = useCartStore();
   const handleAddToCart = async () => {
     if (user === null) {
       return toast.error("لطفا وارد حساب کاربری خود شوید", { id: "Auth" });
@@ -31,7 +29,7 @@ const ProductCard = ({ product }) => {
           image: product.images[0],
         },
       });
-      addToCart(product, 1);
+      await getCartLength();
       toast.success("محصول با موفقیت به سبد خرید اضافه شد");
     } catch (error) {
       toast.error("خطا در اضافه کردن محصول به سبد خرید");
