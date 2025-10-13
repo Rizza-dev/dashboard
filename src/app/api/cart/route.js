@@ -1,11 +1,32 @@
 import { connectDB } from "@/lib/mongodb";
 import Cart from "@/models/Cart";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
-export async function GET(req) {
+const JWT_SECRET = process.env.JWT_SECRET; // 👈 حتماً در .env تنظیم کن
+
+// ✅ گرفتن userId از توکن کوکی
+// function getUserIdFromToken() {
+//   const token = cookies().get("accessToken")?.value;
+//   if (!token) return null;
+//   try {
+//     const decoded = jwt.verify(token, JWT_SECRET);
+//     return decoded.userId;
+//   } catch (err) {
+//     return null;
+//   }
+// }
+export async function GET() {
   await connectDB();
-  const { searchParams } = new URL(req.url);
-  const userId = searchParams.get("userId");
+  const cookiesStore = cookies();
+  const token = (await cookiesStore).get("accessToken")?.value;
+
+  if (!token)
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const userId = decoded.id;
 
   if (!userId) {
     return NextResponse.json({ message: "User ID required" }, { status: 400 });
@@ -36,5 +57,29 @@ export async function POST(req) {
     await cart.save();
   }
 
+  return NextResponse.json(cart);
+}
+
+export async function DELETE(req) {
+  await connectDB();
+  const cookiesStore = cookies();
+  const token = (await cookiesStore).get("accessToken")?.value;
+
+  if (!token)
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  const userId = decoded.id;
+
+  if (!userId) {
+    return NextResponse.json({ message: "User ID required" }, { status: 400 });
+  }
+  
+  const { productId } = await req.json();
+  const cart = await Cart.findOne({ userId });
+  if (!cart)
+    return NextResponse.json({ message: "Cart not found" }, { status: 404 });
+  cart.items = cart.items.filter((i) => i.productId.toString() !== productId);
+  await cart.save();
   return NextResponse.json(cart);
 }

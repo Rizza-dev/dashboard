@@ -1,20 +1,26 @@
 "use client";
 import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
+import { useCartStore } from "@/store/useCartStore";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const SingleProduct = ({ product }) => {
   const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState(1);
-  const { user } = useAuthStore();
+  const { user, checkAuth } = useAuthStore();
+  const { addToCart } = useCartStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const handleAddToCart = async () => {
     try {
       if (user === null) {
-        return toast.error("لطفا وارد حساب کاربری خود شوید");
+        return toast.error("لطفا وارد حساب کاربری خود شوید", { id: "auth" });
       }
       await api.post("/cart", {
         userId: user._id,
@@ -26,6 +32,7 @@ const SingleProduct = ({ product }) => {
           image: product.images[0],
         },
       });
+      addToCart(product, quantity);
       toast.success("محصول با موفقیت به سبد خرید اضافه شد");
     } catch (error) {
       console.log(error);

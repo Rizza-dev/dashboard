@@ -1,21 +1,32 @@
 "use client";
+import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
 import { Menu, ShoppingCart, UserCircle, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const Navbar = ({ logoUrl, siteName }) => {
+const Navbar = ({ logoUrl, siteName , cartLength }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-
+  // const [cart, setCart] = useState(0);
   const { user, checkAuth } = useAuthStore();
+  // const { cart } = useCartStore();
 
-  const cart = 0;
+  // const getProduct = async () => {
+  //   await api.get("/cart/").then((res) => {
+  //     setCart(res.data.items.length);
+  //     console.log(res.data.items);
+  //   });
+  // };
 
   useEffect(() => {
     checkAuth();
   }, []);
+
+  // useEffect(() => {
+  //   getProduct();
+  // }, []);
 
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];
@@ -45,7 +56,7 @@ const Navbar = ({ logoUrl, siteName }) => {
               <UserCircle size={20} />
             </Link>
             <span className="absolute -top-2 text-background -right-2 px-2 rounded-full  bg-foreground ">
-              {cart.length || 0}
+              {cartLength}
             </span>
           </li>
         )}
@@ -117,7 +128,7 @@ const Navbar = ({ logoUrl, siteName }) => {
                   <ShoppingCart size={20} />
                 </Link>
                 <span className="absolute -top-2 text-background -right-2 px-2 rounded-full  bg-foreground ">
-                  {cart.length || 0}
+                  {cartLength}
                 </span>
               </li>
             )}

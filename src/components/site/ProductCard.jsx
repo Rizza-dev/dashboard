@@ -1,9 +1,44 @@
-import { PlusCircle, ShoppingBag, ShoppingCart } from "lucide-react";
+"use client";
+import api from "@/lib/axios";
+import { useAuthStore } from "@/store/authStore";
+import { useCartStore } from "@/store/useCartStore";
+import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
+  const { user, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const { addToCart } = useCartStore();
+  const handleAddToCart = async () => {
+    if (user === null) {
+      return toast.error("لطفا وارد حساب کاربری خود شوید", { id: "Auth" });
+    }
+    try {
+      await api.post("/cart", {
+        userId: user._id,
+        product: {
+          productId: product._id,
+          title: product.name,
+          price: product.price,
+          quantity: 1,
+          image: product.images[0],
+        },
+      });
+      addToCart(product, 1);
+      toast.success("محصول با موفقیت به سبد خرید اضافه شد");
+    } catch (error) {
+      toast.error("خطا در اضافه کردن محصول به سبد خرید");
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] rounded-lg overflow-hidden">
       <Image
@@ -26,7 +61,10 @@ const ProductCard = ({ product }) => {
           </p>
         </div>
       </Link>
-      <button className="absolute hover:scale-110 transition-all ease-in duration-100 top-2 left-2 border border-text-mute cursor-pointer p-2 bg-bg-2/30 backdrop-blur-sm rounded-full">
+      <button
+        onClick={handleAddToCart}
+        className="absolute hover:scale-110 transition-all ease-in duration-100 top-2 left-2 border border-text-mute cursor-pointer p-2 bg-bg-2/30 backdrop-blur-sm rounded-full"
+      >
         <ShoppingCart size={20} />
       </button>
     </div>
