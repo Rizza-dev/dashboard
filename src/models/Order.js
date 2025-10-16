@@ -34,7 +34,7 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    authority: { type: String, required: true, unique: true },
+    authority: { type: String, required: true, unique: true , sparse: true, },
   },
   { timestamps: true }
 );
