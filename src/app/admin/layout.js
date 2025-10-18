@@ -10,21 +10,17 @@ export const metadata = {
   icons: "./logo.svg",
 };
 
-export default function RootLayout({ children }) {
+export default function AdminLayout({ children }) {
   return (
-    <html lang="FA-IR" dir="rtl">
-      <body className={`${artin.className}`}>
-        <div className="w-full h-full flex md:gap-4  py-4  px-4">
-          <div className="w-fit h-full">
-            <SideBar />
-          </div>
-          <div className="w-full h-full">
-            <Navbar />
-            <div className="lg:mt-6 mt-4 h-full w-full">{children}</div>
-            <Toaster />
-          </div>
-        </div>
-      </body>
-    </html>
+    <div dir="rtl" className="w-full h-full flex md:gap-4 py-4 px-4 ">
+      <div className="w-fit h-full">
+        <SideBar />
+      </div>
+      <div className="w-full h-full">
+        <Navbar />
+        <div className="lg:mt-6 mt-4 h-full w-full">{children}</div>
+        <Toaster />
+      </div>
+    </div>
   );
 }

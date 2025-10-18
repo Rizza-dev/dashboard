@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { user } = useAuthStore();
+  const { user, clearAuth } = useAuthStore();
   const { cartLength, getCartLength } = useCartStore();
 
   useEffect(() => {
@@ -122,6 +122,19 @@ const Navbar = ({ logoUrl, siteName }) => {
                 </span>
               </li>
             )}
+            <li>
+              {user && (
+                <button
+                  className="cursor-pointer bg-foreground text-black py-2 px-6 mt-6 rounded-[4px]"
+                  onClick={() => {
+                    clearAuth();
+                    setIsMenuOpen(false)
+                  }}
+                >
+                  خروج از حساب کاربری
+                </button>
+              )}
+            </li>
           </ul>
           {/* ===================== close button ==================== */}
           <X
