@@ -7,12 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
-  const { checkAuth, user } = useAuthStore();
   const [cart, setCart] = useState([]);
-  const [finalPrice, setFinalPrice] = useState(0);
-  useEffect(() => {
-    checkAuth();
-  }, []);
 
   useEffect(() => {
     getProduct();
@@ -21,12 +16,6 @@ const page = () => {
   const getProduct = async () => {
     await api.get("/cart/").then((res) => {
       setCart(res.data.items);
-      setFinalPrice(
-        res.data.items.reduce(
-          (acc, item) => acc + item.price * item.quantity,
-          0
-        ) + 85000
-      );
     });
   };
 

@@ -4,17 +4,14 @@ import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/useCartStore";
 import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const SingleProduct = ({ product }) => {
   const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState(1);
-  const { user, checkAuth } = useAuthStore();
+  const { user } = useAuthStore();
   const { getCartLength } = useCartStore();
-  useEffect(() => {
-    checkAuth();
-  }, []);
 
   const handleAddToCart = async () => {
     try {
@@ -22,7 +19,7 @@ const SingleProduct = ({ product }) => {
         return toast.error("لطفا وارد حساب کاربری خود شوید", { id: "auth" });
       }
       await api.post("/cart", {
-        userId: user._id,
+        userId: user.id,
         product: {
           productId: product._id,
           title: product.name,
@@ -45,6 +42,8 @@ const SingleProduct = ({ product }) => {
         <div className="w-full h-full flex flex-col items-center justify-center gap-4 rounded-md py-8 border-strok border">
           <div className="relative w-[90%] h-full flex-6 aspect-[3/4] max-w-[500px] rounded-md overflow-hidden">
             <Image
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
               src={mainImage}
               alt={product.name}
               fill
@@ -58,6 +57,7 @@ const SingleProduct = ({ product }) => {
                 className="relative aspect-square w-[80px] h-[80px] md:w-[100px] md:h-[100px]  rounded-sm overflow-hidden"
               >
                 <Image
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
                   src={image}
                   alt={product.name}
                   fill

@@ -9,11 +9,10 @@ import React, { useEffect, useState } from "react";
 const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { user, checkAuth } = useAuthStore();
+  const { user } = useAuthStore();
   const { cartLength, getCartLength } = useCartStore();
 
   useEffect(() => {
-    checkAuth();
     if (user) {
       getCartLength();
     }

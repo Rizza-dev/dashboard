@@ -11,17 +11,32 @@ export const useAuthStore = create(
       setAuth: (token, user) => set({ token, user }),
 
       clearAuth: async () => {
+        const token = get().token;
         set({ token: null, user: null });
         try {
-          await api.post("/auth/logout");
+          await api.post(
+            "/auth/logout",
+            {},
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
         } catch (error) {
           console.error("Logout failed:", error);
         }
       },
 
       checkAuth: async () => {
+        const token = get().token;
         try {
-          const res = await fetch("/api/auth/check", { cache: "no-store" });
+          const res = await fetch("/api/auth/check", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+            cache: "no-store",
+          });
           if (!res.ok) throw new Error("invalid");
           const data = await res.json();
 
@@ -30,6 +45,10 @@ export const useAuthStore = create(
             return false;
           }
 
+          const currentUser = get().user;
+          if (JSON.stringify(currentUser) !== JSON.stringify(data.user)) {
+            set({ user: data.user, token: data.token || token });
+          }
           return true;
         } catch (error) {
           await get().clearAuth();
@@ -39,6 +58,7 @@ export const useAuthStore = create(
     }),
     {
       name: "auth-storage", // ذخیره در localStorage
+      skipHydration: typeof window === "undefined",
     }
   )
 );

@@ -51,7 +51,7 @@ const page = () => {
       }
       // ارسال درخواست به زرین پال برای پرداخت
       const res = await api.post("/payment-zarinpal/request", {
-        user: user._id,
+        user: user.id,
         items: cartItems,
         finalPrice: finalPrice,
         recipientName,
@@ -118,6 +118,7 @@ const page = () => {
               className="p-[2px]"
               src={"/zarinpal.png"}
               fill
+              sizes="100vw"
               alt="zarinpal"
             />
           </div>

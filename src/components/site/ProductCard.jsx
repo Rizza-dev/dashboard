@@ -9,18 +9,15 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
-  const { user, checkAuth } = useAuthStore();
+  const { user } = useAuthStore();
   const { getCartLength } = useCartStore();
-  useEffect(() => {
-    checkAuth();
-  }, []);
   const handleAddToCart = async () => {
     if (user === null) {
       return toast.error("لطفا وارد حساب کاربری خود شوید", { id: "Auth" });
     }
     try {
       await api.post("/cart", {
-        userId: user._id,
+        userId: user.id,
         product: {
           productId: product._id,
           title: product.name,
@@ -40,6 +37,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] rounded-lg overflow-hidden">
       <Image
+        priority
         fill
         src={product.images[0]}
         alt={product.name}

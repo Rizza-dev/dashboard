@@ -1,9 +1,16 @@
 import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server";
 export async function GET() {
   const cookiesStore = cookies();
   const token = (await cookiesStore).get("accessToken")?.value;
   if (!token) {
-    return Response.json({ valid: false }, { status: 401 });
-  } 
-  return Response.json({ valid: true });
+    return NextResponse.json({ valid: false }, { status: 401 });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return NextResponse.json({ valid: true, user: decoded });
+  } catch (error) {
+    return NextResponse.json({ valid: false }, { status: 401 });
+  }
 }

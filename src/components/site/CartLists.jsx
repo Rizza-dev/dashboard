@@ -17,7 +17,7 @@ const CartLists = ({ cart , getProduct}) => {
     }
 
     try {
-      const res = await api.delete(`/cart/${user._id}?productId=${id}`);
+      const res = await api.delete(`/cart/${user.id}?productId=${id}`);
 
       if (res.status === 200) {
         toast.success("کالا با موفقیت حذف شد ✅");
@@ -38,7 +38,7 @@ const CartLists = ({ cart , getProduct}) => {
       return;
     }
     try {
-      const res = await api.put(`/cart/${user._id}`, {
+      const res = await api.put(`/cart/${user.id}`, {
         productId,
         quantity: newQuantity,
       });

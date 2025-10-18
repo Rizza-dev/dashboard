@@ -81,6 +81,7 @@ const CreateProduct = ({ product }) => {
             <div className="w-full max-w-[400px] max-h-[533px] h-full relative aspect-[3/4] object-fill rounded-md overflow-hidden">
               <label htmlFor="upload">
                 <Image
+                sizes="100vw"
                   fill
                   className="absolute inset-0 "
                   src={form?.images[0] || "/upload.png"}
@@ -106,6 +107,7 @@ const CreateProduct = ({ product }) => {
                   className="relative w-20 h-20 rounded-md overflow-hidden"
                 >
                   <Image
+                  sizes="100vw"
                     fill
                     className="absolute inset-0"
                     src={image}

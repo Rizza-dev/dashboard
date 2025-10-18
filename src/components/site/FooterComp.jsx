@@ -106,7 +106,9 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
           href="/"
           className="w-full h-full flex flex-col items-center justify-center "
         >
-          <Image src={logoUrl} width={80} height={80} alt="logo" />
+          <div className="relative w-[80px] h-[80px] overflow-hidden">
+            <Image sizes="100vw" fill src={logoUrl} alt="logo" />
+          </div>
           <p className="text-xl text-nowrap lg:text-2xl">{siteName}</p>
         </Link>
       </div>

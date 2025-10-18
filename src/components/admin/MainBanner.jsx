@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import toast from "react-hot-toast";
 import api from "@/lib/axios";
-import Loading from "../Loading";
-
 const MainBanner = () => {
   const [bannerImage, setBannerImage] = useState("");
   const [bannerMobileImage, setBannerMobileImage] = useState("");

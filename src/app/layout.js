@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/site/Navbar";
 import { getSiteSettings } from "@/lib/getSiteSettings.js";
 import Footer from "@/components/site/Footer";
+import AuthProvider from "@/components/AuthProvider";
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
@@ -19,13 +20,15 @@ export default async function RootLayout({ children }) {
   const settings = await getSiteSettings();
   const { logoUrl, siteName } = settings;
   return (
-    <html lang="FA-IR" dir="rtl">
+    <html lang="FA-IR" dir="rtl" data-scroll-behavior="smooth">
       <body className={`${artin.className}`}>
         <div className=" space-y-4 p-4 w-full h-full">
           <Toaster />
-          <Navbar logoUrl={logoUrl} siteName={siteName} />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <Navbar logoUrl={logoUrl} siteName={siteName} />
+            {children}
+            <Footer />
+          </AuthProvider>
         </div>
       </body>
     </html>

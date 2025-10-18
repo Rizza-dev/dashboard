@@ -11,12 +11,9 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
   const [categorys, setCategorys] = useState([]);
   const [uploading, setUploading] = useState(false);
 
-
-  
-
   // get form data
   const [form, setForm] = useState({
-    code : 0,
+    code: 0,
     name: "",
     price: "",
     description: "",
@@ -67,7 +64,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
       await api.post("/products", JSON.stringify(form));
       toast.success("محصول با موفقیت ایجاد شد");
       setForm({
-        code : 0,
+        code: 0,
         name: "",
         price: "",
         description: "",
@@ -102,6 +99,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             <div className="w-full max-w-[400px] max-h-[533px] h-full relative aspect-[3/4] object-fill rounded-md overflow-hidden">
               <label htmlFor="upload">
                 <Image
+                  sizes="100vw"
                   fill
                   className="absolute inset-0 "
                   src={
@@ -133,6 +131,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
                   className="relative w-20 h-20 rounded-md overflow-hidden"
                 >
                   <Image
+                    sizes="100vw"
                     fill
                     className="absolute inset-0"
                     src={image}
@@ -154,7 +153,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             type="text"
             id="productName"
             placeholder="نام محصول"
-            disabled = {uploading}
+            disabled={uploading}
             className="block w-full border border-strok rounded-md p-4  outline-none"
           />
           {/* ====================code===================== */}
@@ -164,7 +163,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             name="code"
             onChange={(e) => handleChange(e)}
             type="number"
-            disabled = {uploading}
+            disabled={uploading}
             id="productCode"
             placeholder="کد محصول"
             className="block w-full border border-strok rounded-md p-4  outline-none"
@@ -176,7 +175,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             id="description"
             onChange={(e) => handleChange(e)}
             placeholder="توضیحات"
-            disabled = {uploading}
+            disabled={uploading}
             className="block w-full border border-strok rounded-md p-4  outline-none"
           ></textarea>
           {/* ====================colors===================== */}
@@ -246,7 +245,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               className="border border-strok rounded-md p-4 outline-none block"
               name="categoryId"
               id="categoryId"
-              disabled = {uploading}
+              disabled={uploading}
             >
               <option value="">انتخاب دسته</option>
               {categorys.map((cat, index) => (
@@ -262,7 +261,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               <label htmlFor="stock">تعداد</label>
               <input
                 value={form.stock}
-                disabled = {uploading}
+                disabled={uploading}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name="stock"
@@ -275,7 +274,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               <label htmlFor="price">قیمت</label>
               <input
                 value={form.price}
-                disabled = {uploading}
+                disabled={uploading}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name="price"
@@ -287,7 +286,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
             <div className="w-full">
               <label htmlFor="checkSpecial">قیمت ویژه</label>
               <input
-              disabled = {uploading}
+                disabled={uploading}
                 type="checkbox"
                 id="checkSpecial"
                 className="border border-strok rounded-md p-4  outline-none block"
@@ -298,7 +297,7 @@ const CreateProduct = ({ createProduct, setCreateProduct }) => {
               <div className="w-full ">
                 <label htmlFor="newPrice">قیمت جدید</label>
                 <input
-                disabled = {uploading}
+                  disabled={uploading}
                   value={form.specialPrice}
                   onChange={(e) => handleChange(e)}
                   type="number"
