@@ -83,7 +83,7 @@ const Navbar = ({ logoUrl, siteName }) => {
       >
         <div className="w-full h-full relative">
           {/* ===================== menu ==================== */}
-          <ul className="flex flex-col items-center justify-center gap-4 h-full">
+          <ul className="flex flex-col items-center justify-center gap-8 h-full text-xl">
             <li onClick={() => setIsMenuOpen(false)}>
               <Button to={"/"}>صفحه اصلی</Button>
             </li>
@@ -98,7 +98,7 @@ const Navbar = ({ logoUrl, siteName }) => {
             </li>
             {user !== null && (
               <li onClick={() => setIsMenuOpen(false)}>
-                <Button to={"/admin"}>
+                <Button to={user?.role === "admin" ? "/admin" : "/profile"}>
                   {user?.role === "admin" ? "پنل مدیریت" : "پروفایل"}
                 </Button>
               </li>

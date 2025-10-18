@@ -15,6 +15,8 @@ const page = () => {
   const [phone, setPhone] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [address, setAddress] = useState("");
+  const [loading, setLoading] = useState(false);
+
   // cart information
   const [cartItems, setCartItems] = useState([]);
   const [finalPrice, setFinalPrice] = useState(0);
@@ -39,7 +41,7 @@ const page = () => {
   // handle checkout
   const handleCheckout = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       if (!recipientName || !phone || !postalCode || !address) {
         toast.error("لطفا مشخصات گیرنده را پر کنید", { id: "checkout" });
@@ -59,16 +61,18 @@ const page = () => {
         postalCode,
         address,
       });
-
+      setLoading(false);
       // اگر درخواست با موفقیت انجام شد، به صفحه پرداخت منتقل شود
       if (res.data.url) {
         router.push(res.data.url);
       } else {
         toast.error("خطا در پرداخت");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
       toast.error("خطا در پرداخت");
+      setLoading(false);
     }
   };
 
@@ -123,11 +127,14 @@ const page = () => {
             />
           </div>
           <button
+            disabled={loading}
             onClick={(e) => handleCheckout(e)}
-            className="w-full py-2 bg-foreground text-background mt-6 cursor-pointer rounded-md hover:scale-95 transition-all ease-in duration-200"
+            className={`${
+              loading && "opacity-50 cursor-not-allowed"
+            } w-full py-2 bg-foreground text-background mt-6 cursor-pointer rounded-md hover:scale-95 transition-all ease-in duration-200`}
           >
             پرداخت
-          </button>
+          </button>  jh  bn          j 
         </form>
       </div>
     </div>
