@@ -1,7 +1,14 @@
 "use client";
 import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/useCartStore";
-import { Menu, ShoppingCart, UserCircle, X } from "lucide-react";
+import {
+  ClipboardList,
+  LogOut,
+  Menu,
+  ShoppingCart,
+  UserCircle,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -38,16 +45,38 @@ const Navbar = ({ logoUrl, siteName }) => {
             </Button>
           </li>
         ) : (
-          <li className="px-4 py-2 bg-[#F2994A] rounded-sm cursor-pointer relative flex items-center justify-center gap-4">
-            <Link href={"/profile/cart"}>
+          <li className="cursor-pointer relative flex items-center justify-center gap-4">
+            <Link
+              className="w-full h-full px-4 py-2 bg-[#F2994A] rounded-sm "
+              href={"/profile/cart"}
+            >
               <ShoppingCart size={20} />
             </Link>
-            <Link href={"/profile"}>
-              <UserCircle size={20} />
-            </Link>
+
             <span className="absolute -top-2 text-background -right-2 px-2 rounded-full  bg-foreground ">
               {cartLength}
             </span>
+          </li>
+        )}
+        {user && (
+          <li className="flex items-center group justify-center relative py-2 px-4 rounded-sm  bg-[#F2994A]">
+            <UserCircle size={20} />
+
+            {/* ===================== dropdown ==================== */}
+            <div className="invisible bg-bg-2 opacity-0 group-hover:visible group-hover:opacity-100 transition-all ease-in duration-100  w-40 h-fit p-4 border-strok rounded absolute top-0 border mt-10 ">
+              <ul className="space-y-4">
+                <li className="flex gap-2 items-center justify-center">
+                  <ClipboardList size={16} />
+                  <Link href={"/profile"}> لیست سفارشات</Link>
+                </li>
+                <li className="flex gap-2 items-center justify-center ">
+                  <LogOut size={16} />
+                  <button className="cursor-pointer" onClick={clearAuth}>
+                    خروج از حساب
+                  </button>
+                </li>
+              </ul>
+            </div>
           </li>
         )}
         <li>
@@ -128,7 +157,7 @@ const Navbar = ({ logoUrl, siteName }) => {
                   className="cursor-pointer bg-foreground text-black py-2 px-6 mt-6 rounded-[4px]"
                   onClick={() => {
                     clearAuth();
-                    setIsMenuOpen(false)
+                    setIsMenuOpen(false);
                   }}
                 >
                   خروج از حساب کاربری

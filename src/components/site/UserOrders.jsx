@@ -17,10 +17,32 @@ const UserOrders = ({ order }) => {
       <div className="lg:sticky lg:top-0 w-full flex-1  rounded">
         {/* ==================مشخصات گیرنده==================== */}
         <div className="w-full h-full border border-strok p-6">
-          <div className="flex flex-col gap-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl">مشخصات گیرنده</h2>
-              <h3>شناسه سفارش : {order._id}</h3>
+          <div className="flex flex-col gap-6 w-full">
+            <div className="flex justify-between items-start w-full">
+              <div>
+                <h2 className="text-2xl">مشخصات گیرنده</h2>
+                <h3 className="mt-2">شناسه سفارش : {order._id}</h3>
+              </div>
+              <p
+                className={`animate-pulse text-nowrap flex items-center justify-center flex-row-reverse gap-1 ${
+                  order.status === "تحویل داده شده"
+                    ? "text-green-500"
+                    : order.status === "لغو شده"
+                    ? "text-red-500"
+                    : "text-yellow-500"
+                }`}
+              >
+                وضیعت : {order.status}{" "}
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    order.status === "تحویل داده شده"
+                      ? "bg-green-500"
+                      : order.status === "لغو شده"
+                      ? "bg-red-500"
+                      : "bg-yellow-500"
+                  }`}
+                />
+              </p>
             </div>
             <div className="flex gap-2 items-center justify-start">
               <User size={16} />

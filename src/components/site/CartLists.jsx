@@ -7,13 +7,10 @@ import { useCartStore } from "@/store/useCartStore";
 import { MinusCircle, PlusCircle, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import Loading from "../Loading";
-
 const page = ({ cart }) => {
   const { user } = useAuthStore();
   const { getCartLength } = useCartStore();
-  const [cartItems, setCartItems] = useState(cart.items);
-  console.log(cartItems);
+  const [cartItems, setCartItems] = useState(cart?.items);
 
   //   حذف محصول از سبد خرید و دیتابیس
   const deleteProduct = async (id) => {
@@ -63,7 +60,7 @@ const page = ({ cart }) => {
     }
   };
 
-  if (cartItems.length === 0) {
+  if (!cartItems) {
     return (
       <div className="w-full h-full min-h-[80vh] flex items-center justify-center flex-col text-2xl">
         <p>سبد خرید شما خالی است</p>
@@ -101,7 +98,7 @@ const page = ({ cart }) => {
             </tr>
           </thead>
           <tbody className="w-full h-full">
-            {cartItems.map((item) => (
+            {cartItems?.map((item) => (
               <tr key={item._id}>
                 <th className="py-4">
                   <div className=" pr-2 flex items-center gap-1 md:gap-2  max-md:max-w-[120px]">
@@ -165,7 +162,7 @@ const page = ({ cart }) => {
           <h2>قیمت تمام شده</h2>
           <p>
             {new Intl.NumberFormat("fa-IR").format(
-              cartItems.reduce(
+              cartItems?.reduce(
                 (acc, item) => acc + item.price * item.quantity,
                 0
               )
@@ -184,7 +181,7 @@ const page = ({ cart }) => {
           <h2 className="text-xl">جمع کل</h2>
           <p className="text-2xl font-bold">
             {new Intl.NumberFormat("fa-IR").format(
-              cartItems.reduce(
+              cartItems?.reduce(
                 (acc, item) => acc + item.price * item.quantity,
                 0
               ) + 85000

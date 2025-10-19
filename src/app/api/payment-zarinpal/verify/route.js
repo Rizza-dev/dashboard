@@ -53,7 +53,8 @@ export async function GET(req) {
         phone,
         postalCode,
         address,
-        authority
+        status: "در حال بررسی",
+        authority,
       });
       // حذف پرداخت موقت
       await TempPayment.deleteOne({ authority });

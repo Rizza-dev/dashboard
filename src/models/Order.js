@@ -18,6 +18,12 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "paid", "failed"],
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["در حال بررسی", "در حال ارسال", "تحویل داده شده", "لغو شده"],
+      default: "در حال بررسی",
+      required: true,
+    },
     recipientName: {
       type: String,
       required: true,
@@ -34,7 +40,7 @@ const orderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    authority: { type: String, required: true, unique: true , sparse: true, },
+    authority: { type: String, required: true, unique: true, sparse: true },
   },
   { timestamps: true }
 );

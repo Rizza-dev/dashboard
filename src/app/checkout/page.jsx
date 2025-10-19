@@ -78,7 +78,7 @@ const page = () => {
 
   return (
     <div className="w-full h-full relative">
-      <div className="bg-background w-full max-w-xl p-4 h-fit rounded-md">
+      <div className="bg-background w-full mx-auto max-w-xl p-4 h-fit rounded-md">
         <h2 className="text-2xl text-center">مشخصات گیرنده</h2>
         <form className="w-full h-full">
           <input
@@ -97,6 +97,7 @@ const page = () => {
             type="tel"
             name="phone"
             id="phone"
+            pattern="^(\+98|0)?9\d{9}$"
             placeholder="شماره همراه"
           />
           <input
@@ -134,7 +135,7 @@ const page = () => {
             } w-full py-2 bg-foreground text-background mt-6 cursor-pointer rounded-md hover:scale-95 transition-all ease-in duration-200`}
           >
             پرداخت
-          </button>  jh  bn          j 
+          </button>
         </form>
       </div>
     </div>
