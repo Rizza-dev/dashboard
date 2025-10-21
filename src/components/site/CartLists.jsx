@@ -60,7 +60,7 @@ const page = ({ cart }) => {
     }
   };
 
-  if (!cartItems) {
+  if (!cartItems || cartItems.length === 0) {
     return (
       <div className="w-full h-full min-h-[80vh] flex items-center justify-center flex-col text-2xl">
         <p>سبد خرید شما خالی است</p>

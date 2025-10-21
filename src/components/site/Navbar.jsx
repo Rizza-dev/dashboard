@@ -63,7 +63,7 @@ const Navbar = ({ logoUrl, siteName }) => {
             <UserCircle size={20} />
 
             {/* ===================== dropdown ==================== */}
-            <div className="invisible bg-bg-2 opacity-0 group-hover:visible group-hover:opacity-100 transition-all ease-in duration-100  w-40 h-fit p-4 border-strok rounded absolute top-0 border mt-10 ">
+            <div className="invisible z-30 bg-bg-2 opacity-0 group-hover:visible group-hover:opacity-100 transition-all ease-in duration-300  w-40 h-fit p-4 border-strok rounded absolute top-0 border mt-10 ">
               <ul className="space-y-4">
                 <li className="flex gap-2 items-center justify-center">
                   <ClipboardList size={16} />

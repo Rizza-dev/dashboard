@@ -12,6 +12,11 @@ const UserOrders = ({ order }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  if (!order) {
+    return <div>شما سفارشی ندارید</div>
+  }
+
   return (
     <div className="w-full mb-20 border-b border-strok relative p-4 flex gap-2  items-start justify-center flex-col  lg:flex-row">
       <div className="lg:sticky lg:top-0 w-full flex-1  rounded">
