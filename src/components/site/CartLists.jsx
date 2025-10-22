@@ -170,7 +170,7 @@ const page = ({ cart }) => {
           </p>
         </div>
         <div className="flex items-center justify-between w-full mt-6">
-          <h2>هزینه ارسال با پست پسشتاز</h2>
+          <h2>هزینه ارسال با پست پیشتاز</h2>
           <p>{new Intl.NumberFormat("fa-IR").format(85000)}</p>
         </div>
         <span className="text-xs mb-8 text-[#e6e79d] flex items-center justify-start gap-1 mt-2">

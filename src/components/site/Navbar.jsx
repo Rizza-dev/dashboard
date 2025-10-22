@@ -3,6 +3,7 @@ import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/useCartStore";
 import {
   ClipboardList,
+  Edit,
   LogOut,
   Menu,
   ShoppingCart,
@@ -72,7 +73,11 @@ const Navbar = ({ logoUrl, siteName }) => {
               <ul className="space-y-4">
                 <li className="flex gap-2 items-center justify-center">
                   <ClipboardList size={16} />
-                  <Link href={"/profile"}> لیست سفارشات</Link>
+                  <Link href={`/profile/orders/`}> لیست سفارشات</Link>
+                </li>
+                <li className="flex gap-2 items-center justify-center">
+                  <Edit size={16} />
+                  <Link href={`/profile/`}>ویرایش پروفایل</Link>
                 </li>
                 <li className="flex gap-2 items-center justify-center ">
                   <LogOut size={16} />

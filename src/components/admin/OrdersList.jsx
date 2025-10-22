@@ -23,23 +23,6 @@ const OrdersList = ({ orders }) => {
     <div className="w-full h-full min-h-[80vh] relative">
       <div className="w-full h-full flex flex-col bg-bg-2 border border-strok rounded-xl p-4 gap-6 max-w-screen-2xl mx-auto">
         <h1 className="text-2xl md:text-3xl">لیست سفارشات</h1>
-
-        {/* فیلترها
-        <div className="lg:w-fit h-[200px] text-nowrap w-full max-sm:overflow-x-auto whitespace-nowrap px-6 py-4 border border-strok rounded-2xl bg-background flex items-center justify-between gap-4 lg:gap-6">
-          <button className="px-4 py-2 rounded-lg bg-foreground text-background text-sm lg:text-base">
-            همه
-          </button>
-          <button className="px-4 py-2 rounded-lg text-foreground border border-foreground text-sm lg:text-base">
-            تکمیل شده
-          </button>
-          <button className="px-4 py-2 rounded-lg text-foreground border border-foreground text-sm lg:text-base">
-            در انتظار پرداخت
-          </button>
-          <button className="px-4 py-2 rounded-lg text-foreground border border-foreground text-sm lg:text-base">
-            لغو شده
-          </button>
-        </div> */}
-
         {/* دسکتاپ: جدول */}
         <div className="hidden lg:block max-h-full w-full overflow-y-auto mt-4">
           <table className="w-full h-full">

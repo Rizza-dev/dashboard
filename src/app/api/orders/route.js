@@ -3,6 +3,7 @@ import Order from "@/models/Order";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import User from "@/models/User";
 /**
  * GET /orders
  * @return {Order} The order for the given user ID
@@ -10,36 +11,39 @@ import jwt from "jsonwebtoken";
  * @throws {400} If the user ID is not provided
  * @throws {500} If there is an error in the database
  */
-export async function GET() {
+export async function GET(req) {
   try {
-    const coockieStore = cookies();
-    const token = (await coockieStore).get("accessToken")?.value;
+    await connectDB();
 
-    // Check if the user is authenticated
+    const cookiesStore = cookies();
+    const token = (await cookiesStore).get("accessToken")?.value;
+
     if (!token)
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-
-    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Get the user ID from the token
     const userId = decoded.id;
 
-    // Check if the user ID is provided
     if (!userId) {
       return NextResponse.json(
         { message: "User ID required" },
         { status: 400 }
       );
     }
-    // Connect to the database
-    await connectDB();
 
-    // Find the order for the given user ID
-    const order = await Order.find({ user: userId }).lean().sort({ createdAt: -1 });
+    
+    
+    const admin = await User.findOne({ role: "admin" });
+    
 
-    // Return the order
-    return NextResponse.json(order);
+    if (userId !== JSON.parse(JSON.stringify(admin._id))) {
+      return NextResponse.json({ message: "Unauthorized you are not admin" }, { status: 401 });
+    }
+
+    const orders = await Order.find().lean().sort({ createdAt: -1 });
+    return NextResponse.json(orders);
+
+    // Find the order
   } catch (error) {
     console.log(error);
     return NextResponse.json(

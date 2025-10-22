@@ -1,11 +1,35 @@
+"use client";
 import OrdersList from "@/components/admin/OrdersList";
-import { getOrders } from "@/lib/getOrders";
+import api from "@/lib/axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-export default async function orders() {
-  const orders = await getOrders()
-  return (
-    <div>
-      <OrdersList orders={orders} />
-    </div>
-  );
-}
+const page = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getAllOrder = async () => {
+    try {
+      const res = await api.get("/orders");
+      setOrders(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در دریافت سفارش‌ها");
+    }
+  };
+
+  useEffect(() => {
+    getAllOrder();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[80vh] text-xl">
+        در حال بارگذاری سفارش‌ها...
+      </div>
+    );
+  }
+  return <OrdersList orders={orders} />;
+};
+
+export default page;
