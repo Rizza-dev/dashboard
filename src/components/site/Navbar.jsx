@@ -25,6 +25,11 @@ const Navbar = ({ logoUrl, siteName }) => {
     }
   }, [user]);
 
+  const hadnleLogout = () => {
+    clearAuth();
+    window.location.href = "/";
+  };
+
   // مسیرهایی که Navbar نشون داده نشه
   const hideNavbarPaths = ["/login"];
   const hideNavbarWildcard = pathname.startsWith("/admin");
@@ -71,7 +76,7 @@ const Navbar = ({ logoUrl, siteName }) => {
                 </li>
                 <li className="flex gap-2 items-center justify-center ">
                   <LogOut size={16} />
-                  <button className="cursor-pointer" onClick={clearAuth}>
+                  <button className="cursor-pointer" onClick={hadnleLogout}>
                     خروج از حساب
                   </button>
                 </li>
@@ -156,7 +161,7 @@ const Navbar = ({ logoUrl, siteName }) => {
                 <button
                   className="cursor-pointer bg-foreground text-black py-2 px-6 mt-6 rounded-[4px]"
                   onClick={() => {
-                    clearAuth();
+                    hadnleLogout();
                     setIsMenuOpen(false);
                   }}
                 >

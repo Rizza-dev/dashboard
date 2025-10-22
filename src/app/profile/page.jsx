@@ -1,5 +1,6 @@
 "use client";
 import OrdersList from "@/components/admin/OrdersList";
+import AuthProvider from "@/components/AuthProvider";
 import UserOrders from "@/components/site/UserOrders";
 import api from "@/lib/axios";
 import { useAuthStore } from "@/store/authStore";
@@ -13,7 +14,7 @@ const page = () => {
   const [orders, setOrders] = useState([]);
   const router = useRouter();
   console.log(orders);
-  
+
   const getOrder = async () => {
     const res = await api.get("/orders");
     setOrders(res.data);
@@ -34,12 +35,12 @@ const page = () => {
   }
 
   return (
-    <div className="w-full h-full min-h-[80vh]">
-      <h1 className="w-full text-center text-4xl my-10">لیست سفارشات شما</h1>
-      {orders.map((order) => (
-        <UserOrders key={order._id} order={order} />
-      ))}
-    </div>
+      <div className="w-full h-full min-h-[80vh]">
+        <h1 className="w-full text-center text-4xl my-10">لیست سفارشات شما</h1>
+        {orders.map((order) => (
+          <UserOrders key={order._id} order={order} />
+        ))}
+      </div>
   );
 };
 

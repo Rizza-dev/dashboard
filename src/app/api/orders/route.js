@@ -36,7 +36,7 @@ export async function GET() {
     await connectDB();
 
     // Find the order for the given user ID
-    const order = await Order.find({ user: userId }).lean();
+    const order = await Order.find({ user: userId }).lean().sort({ createdAt: -1 });
 
     // Return the order
     return NextResponse.json(order);
