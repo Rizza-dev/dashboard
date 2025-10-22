@@ -13,7 +13,6 @@ const page = () => {
   const { clearCart } = useCartStore();
   const [orders, setOrders] = useState([]);
   const router = useRouter();
-  console.log(orders);
 
   const getOrder = async () => {
     const res = await api.get("/orders");

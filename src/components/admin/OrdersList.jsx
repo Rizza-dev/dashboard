@@ -12,7 +12,6 @@ const OrdersList = ({ orders }) => {
       if (res.data.success === true) {
         toast.success("وضعیت سفارش با موفقیت تغییر کرد");
       }
-      console.log(res.data);
       
     } catch (error) {
       console.log(error);

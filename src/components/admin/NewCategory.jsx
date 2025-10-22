@@ -32,9 +32,6 @@ const NewCategory = ({ newCategory, setNewCategory }) => {
   };
   const handleCreateCategory = async () => {
     (e) => e.preventDefault();
-
-
-    console.log({ name, slug, description, categoryImage });
     
     try {
       if (!name || !slug) {

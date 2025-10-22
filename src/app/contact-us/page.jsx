@@ -10,7 +10,6 @@ import Image from "next/image";
 
 export default async function ContactUsPage() {
   const setting = await getSiteSettings();
-  console.log(setting);
 
   return (
     <div className="w-full min-h-[70vh] h-full max-w-screen-lg mx-auto mt-20">
