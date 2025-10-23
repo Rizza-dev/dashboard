@@ -7,7 +7,7 @@ const page = () => {
   useEffect(() => {
     toast.success("شما  به صفحه پروفایل منتقل میشوید");
     setTimeout(() => {
-      window.location.href = "/profile";
+      window.location.href = "/profile/orders";
     }, 3000);
   });
   return (

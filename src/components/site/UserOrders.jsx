@@ -25,11 +25,11 @@ const UserOrders = ({ order }) => {
           <div className="flex flex-col gap-6 w-full">
             <div className="flex justify-between items-start w-full">
               <div>
-                <h2 className="text-2xl">مشخصات گیرنده</h2>
-                <h3 className="mt-2">شناسه سفارش : {order._id}</h3>
+                <h2 className="md:text-2xl text-lg">مشخصات گیرنده</h2>
+                <h3 className="mt-4 text-sm ">شناسه سفارش : {order._id}</h3>
               </div>
               <p
-                className={`animate-pulse text-nowrap flex items-center justify-center flex-row-reverse gap-1 ${
+                className={`animate-pulse mt-2 text-xs md:text-base xl:text-lg text-nowrap flex items-center justify-center flex-row-reverse gap-1 ${
                   order.status === "تحویل داده شده"
                     ? "text-green-500"
                     : order.status === "لغو شده"
@@ -105,7 +105,7 @@ const UserOrders = ({ order }) => {
           </div>
         </div>
       </div>
-      <div className="flex-2 sticky top-0 w-full h-full flex gap-6 border border-strok p-4">
+      <div className="flex-2 sticky top-0 w-full h-full flex gap-6 border flex-col md:flex-row border-strok p-4">
         {order?.items?.map((item) => (
           <div
             key={item._id}

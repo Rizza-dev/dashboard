@@ -40,7 +40,7 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
               راهنمای قبل از خرید
             </p>
           </Link>
-          <Link href="/profile" className="flex items-center gap-2">
+          <Link href="/profile/orders" className="flex items-center gap-2">
             <Truck size={20} />
             <p className="text-xl text-nowrap 2xl:text-2xl">پیگیری سفارشات</p>
           </Link>

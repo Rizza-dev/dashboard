@@ -12,20 +12,20 @@ export default async function ContactUsPage() {
   const setting = await getSiteSettings();
 
   return (
-    <div className="w-full min-h-[70vh] h-full max-w-screen-lg mx-auto mt-20">
+    <div className="w-full min-h-[70vh] h-full max-w-screen-lg mx-auto mt-20 space-y-6">
       <div className="flex flex-col items-center justify-center">
         <div className="relative aspect-square w-[100px]">
           <Image className="p-1" fill src={setting.logoUrl} alt="picture" />
         </div>
         <p className="text-xl font-bold">{setting.siteName}</p>
       </div>
-      <h1 className="text-[48px] mt-10 text-center w-full">
+      <h1 className="md:text-[48px] text-3xl mt-10 text-center w-full">
         تماس با مجموعه برلیان
       </h1>
-      <p className="text-2xl mt-6 w-full text-center">
+      <p className="md:text-2xl text-lg mt-6 w-full text-center">
         از طریق راه‌های زیر می‌توانید با ما ارتباط بگیرید
       </p>
-      <div className="w-full max-w-sm mx-auto mt-10 flex flex-col items-center justify-center gap-10">
+      <div className="w-full max-w-sm mx-auto mt-20 flex flex-col items-center justify-center gap-10">
         <div className="flex items-center justify-between w-full h-full">
           <span className="flex gap-1">
             <Send size={20} /> <MessageCircle size={20} />

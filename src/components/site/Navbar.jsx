@@ -19,6 +19,7 @@ const Navbar = ({ logoUrl, siteName }) => {
   const pathname = usePathname();
   const { user, clearAuth } = useAuthStore();
   const { cartLength, getCartLength } = useCartStore();
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -65,7 +66,7 @@ const Navbar = ({ logoUrl, siteName }) => {
           </li>
         )}
         {user && (
-          <li className="flex items-center group justify-center relative py-2 px-4 rounded-sm  bg-[#F2994A]">
+          <div className="flex items-center group justify-center relative py-2 px-4 rounded-sm  bg-[#F2994A]">
             <UserCircle size={20} />
 
             {/* ===================== dropdown ==================== */}
@@ -87,7 +88,7 @@ const Navbar = ({ logoUrl, siteName }) => {
                 </li>
               </ul>
             </div>
-          </li>
+          </div>
         )}
         <li>
           <Button to={"/"}>صفحه اصلی</Button>
@@ -109,12 +110,46 @@ const Navbar = ({ logoUrl, siteName }) => {
           isMenuOpen ? "opacity-100" : "opacity-0 hidden"
         }  md:hidden`}
       />
-      <button
-        className="cursor-pointer md:hidden"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        <Menu />
-      </button>
+      <div className="flex items-center justify-center gap-6">
+        <button
+          className="cursor-pointer md:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <Menu />
+        </button>
+        {user && (
+          <div
+            onClick={() => setDropdown(!dropdown)}
+            className="flex md:hidden items-center justify-center relative py-2 px-3 rounded-sm  bg-[#F2994A]"
+          >
+            <UserCircle size={16} />
+
+            {/* ===================== dropdown ==================== */}
+            <div
+              className={` z-30 bg-bg-2 ${
+                dropdown ? "opacity-100" : "opacity-0"
+              } transition-all ease-in duration-300  w-40 h-fit p-4 border-strok rounded absolute top-0 border mt-10 `}
+            >
+              <ul className="space-y-4">
+                <li className="flex gap-2 items-center justify-center">
+                  <ClipboardList size={16} />
+                  <Link href={`/profile/orders/`}> لیست سفارشات</Link>
+                </li>
+                <li className="flex gap-2 items-center justify-center">
+                  <Edit size={16} />
+                  <Link href={`/profile/`}>ویرایش پروفایل</Link>
+                </li>
+                <li className="flex gap-2 items-center justify-center ">
+                  <LogOut size={16} />
+                  <button className="cursor-pointer" onClick={hadnleLogout}>
+                    خروج از حساب
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
       <div
         className={`md:hidden w-3/4 absolute top-0 right-0 bottom-0  ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -140,6 +175,11 @@ const Navbar = ({ logoUrl, siteName }) => {
                 <Button to={user?.role === "admin" ? "/admin" : "/profile"}>
                   {user?.role === "admin" ? "پنل مدیریت" : "پروفایل"}
                 </Button>
+              </li>
+            )}
+            {user !== null && (
+              <li onClick={() => setIsMenuOpen(false)}>
+                <Button to={"/profile/orders"}>لیست سفارشات</Button>
               </li>
             )}
             {user === null ? (
