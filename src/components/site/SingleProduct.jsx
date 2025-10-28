@@ -6,9 +6,9 @@ import { MinusCircle, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-
+import { motion } from "framer-motion";
 const SingleProduct = ({ product }) => {
-  const [mainImage, setMainImage] = useState(product.images[0]);
+  const [mainImage, setMainImage] = useState(product?.images[0]);
   const [quantity, setQuantity] = useState(1);
   const { user } = useAuthStore();
   const { getCartLength } = useCartStore();
@@ -25,7 +25,7 @@ const SingleProduct = ({ product }) => {
           title: product.name,
           price: product.price,
           quantity: quantity,
-          image: product.images[0],
+          image: product?.images[0],
         },
       });
       await getCartLength();
@@ -39,7 +39,12 @@ const SingleProduct = ({ product }) => {
   return (
     <div className="w-full h-full sm:px-[3vw] md:px-[5vw] lg:px-[9vw] lg:mt-10">
       <div className="w-full h-full grid grid-cols-1 xl:grid-cols-2 gap-6 gap-y-6">
-        <div className="w-full h-full flex flex-col items-center justify-center gap-4 rounded-md py-8 border-strok border">
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full h-full flex flex-col items-center justify-center gap-4 rounded-md py-8 border-strok border"
+        >
           <div className="relative w-[90%] h-full flex-6 aspect-[3/4] max-w-[500px] rounded-md overflow-hidden">
             <Image
               priority
@@ -67,8 +72,13 @@ const SingleProduct = ({ product }) => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="w-full h-full rounded-md py-8 border-strok border flex gap-8 flex-col items-start px-4 md:px-8 lg:justify-around">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full h-full rounded-md py-8 border-strok border flex gap-8 flex-col items-start px-4 md:px-8 lg:justify-around"
+        >
           <div>
             <h1 className="md:text-[40px] text-3xl">{product.name}</h1>
             <p className="text-base leading-16 md:text-[24px] max-w-[250px] text-wrap  mt-6">
@@ -108,7 +118,7 @@ const SingleProduct = ({ product }) => {
           >
             افزودن به سبد
           </button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

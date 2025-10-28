@@ -17,7 +17,7 @@ import React, { useEffect, useState } from "react";
 const Navbar = ({ logoUrl, siteName }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { user, clearAuth } = useAuthStore();
+  const { user, clearAuth, avatar } = useAuthStore();
   const { cartLength, getCartLength } = useCartStore();
   const [dropdown, setDropdown] = useState(false);
 
@@ -66,15 +66,29 @@ const Navbar = ({ logoUrl, siteName }) => {
           </li>
         )}
         {user && (
-          <div className="flex items-center group justify-center relative py-2 px-4 rounded-sm  bg-[#F2994A]">
-            <UserCircle size={20} />
+          <div className="flex items-center group justify-center relative ">
+            {avatar?.avatar ? (
+              <div className="border rounded-full mx-4">
+                <img
+                  className="w-8 h-8 rounded-full "
+                  src={userInfo?.avatar}
+                  alt="useravatar"
+                />
+              </div>
+            ) : (
+              <div className="  bg-[#F2994A] px-4 py-2 rounded-sm">
+                <UserCircle size={20} />
+              </div>
+            )}
 
             {/* ===================== dropdown ==================== */}
             <div className="invisible z-30 bg-bg-2 opacity-0 group-hover:visible group-hover:opacity-100 transition-all ease-in duration-300  w-40 h-fit p-4 border-strok rounded absolute top-0 border mt-10 ">
               <ul className="space-y-4">
                 <li className="flex gap-2 items-center justify-center">
                   <ClipboardList size={16} />
-                  <Link href={`/profile/orders/`}> لیست سفارشات</Link>
+                  <Link href={`/profile/orders/`}>
+                    {user?.role === "admin" ? "پنل مدیریت" : "لیست سفارشات"}
+                  </Link>
                 </li>
                 <li className="flex gap-2 items-center justify-center">
                   <Edit size={16} />
@@ -120,9 +134,21 @@ const Navbar = ({ logoUrl, siteName }) => {
         {user && (
           <div
             onClick={() => setDropdown(!dropdown)}
-            className="flex md:hidden items-center justify-center relative py-2 px-3 rounded-sm  bg-[#F2994A]"
+            className="flex md:hidden items-center justify-center relative "
           >
-            <UserCircle size={16} />
+            {avatar?.avatar ? (
+              <div className="border rounded-full">
+                <img
+                  className="w-8 h-8 rounded-full "
+                  src={userInfo?.avatar}
+                  alt="useravatar"
+                />
+              </div>
+            ) : (
+              <div className="bg-[#F2994A] px-4 py-2 rounded-sm">
+                <UserCircle size={20} />
+              </div>
+            )}
 
             {/* ===================== dropdown ==================== */}
             <div
@@ -133,7 +159,9 @@ const Navbar = ({ logoUrl, siteName }) => {
               <ul className="space-y-4">
                 <li className="flex gap-2 items-center justify-center">
                   <ClipboardList size={16} />
-                  <Link href={`/profile/orders/`}> لیست سفارشات</Link>
+                  <Link href={`/profile/orders/`}>
+                    {user?.role === "admin" ? "پنل مدیریت" : "لیست سفارشات"}
+                  </Link>
                 </li>
                 <li className="flex gap-2 items-center justify-center">
                   <Edit size={16} />

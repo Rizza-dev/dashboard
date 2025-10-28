@@ -12,6 +12,7 @@
     "@headlessui/react": "^2.2.9",
     "axios": "^1.12.2",
     "cloudinary": "^2.7.0",
+    "framer-motion": "^12.23.24",
     "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "kavenegar": "^1.1.4",

@@ -1,5 +1,6 @@
 "use client";
 import api from "@/lib/axios";
+import { useAuthStore } from "@/store/authStore";
 import useMenuState from "@/store/MenuState";
 import { BellRing, Menu } from "lucide-react";
 import Image from "next/image";
@@ -8,6 +9,7 @@ import React, { useEffect, useState } from "react";
 const Navbar = () => {
   const [siteName, setSiteName] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
+  const {avatar} = useAuthStore();
   useEffect(() => {
     getSetting();
   }, []);
@@ -31,7 +33,7 @@ const Navbar = () => {
         <button className=" w-[40px] h-[40px] md:w-[48px] md:h-[48px] relative border-text-mute border-2 rounded-full cursor-pointer">
           <Image
           sizes="100vw"
-            src={"/user-picture.svg"}
+            src={avatar || "/user-picture.svg"}
             fill
             className="rounded-full p-[1px]"
             alt="user"

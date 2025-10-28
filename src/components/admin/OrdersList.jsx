@@ -2,17 +2,17 @@
 import api from "@/lib/axios";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "lucide-react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 const OrdersList = ({ orders }) => {
+  
   const handleChangeStatus = async (id, status) => {
-    
     try {
       const res = await api.put("/orders", { id, status });
       if (res.data.success === true) {
         toast.success("وضعیت سفارش با موفقیت تغییر کرد");
       }
-      
     } catch (error) {
       console.log(error);
       toast.error("خطا در تغییر وضعیت سفارش");
@@ -34,6 +34,7 @@ const OrdersList = ({ orders }) => {
                 <th className="pb-4">آدرس</th>
                 <th className="pb-4">جزییات</th>
                 <th className="pb-4">وضعیت</th>
+                <th className="pb-4">وضعیت سفارش</th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ const OrdersList = ({ orders }) => {
                     <p> آدرس :{order.address}</p>
                     <br />
                     <p> کدپستی :{order.postalCode}</p>
+                    <p> تماس :{order.phone}</p>
                   </th>
                   <th className="p-2">
                     <Disclosure>
@@ -108,6 +110,31 @@ const OrdersList = ({ orders }) => {
                       ? "در انتظار پرداخت"
                       : "لغو شده"}
                   </td>
+                  <td>
+                    <select
+                      value={order?.status}
+                      onChange={(e) =>
+                        handleChangeStatus(order._id, e.target.value)
+                      }
+                      className="w-full py-2  px-4 border border-strok mt-4 rounded-md flex justify-between items-center"
+                    >
+                      <option className="text-background" value="در حال بررسی">
+                        در حال بررسی
+                      </option>
+                      <option className="text-background" value="در حال ارسال">
+                        در حال ارسال
+                      </option>
+                      <option
+                        className="text-background"
+                        value="تحویل داده شده"
+                      >
+                        تحویل شده
+                      </option>
+                      <option className="text-background" value="لغو شده">
+                        لغو شده
+                      </option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -126,7 +153,7 @@ const OrdersList = ({ orders }) => {
                   <p className="font-medium">
                     {order.user?.name || order.recipientName}
                   </p>
-                  <p className="text-sm">{order.user?.phone}</p>
+                  <p className="text-sm">{order.phone}</p>
                   <p className="text-sm">{order.address}</p>
                   <p className="text-sm">کد پستی: {order.postalCode}</p>
                 </div>
@@ -193,7 +220,7 @@ const OrdersList = ({ orders }) => {
                 )}
               </Disclosure>
               <select
-                value={order?.status}
+                value={order.status}
                 onChange={(e) => handleChangeStatus(order._id, e.target.value)}
                 className="w-full py-2  px-4 border border-strok mt-4 rounded-md flex justify-between items-center"
               >

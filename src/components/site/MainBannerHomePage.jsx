@@ -1,7 +1,8 @@
+"use client";
 import { ArrowDownCircle } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-
+import { motion } from "framer-motion";
 const MainBannerHomePage = ({
   bannerImage,
   bannerMobileImage,
@@ -10,7 +11,7 @@ const MainBannerHomePage = ({
   CTA,
 }) => {
   return (
-    <picture className="w-full sm:aspect-video aspect-[9/16] block relative rounded-sm md:rounded-lg overflow-hidden">
+    <motion.picture initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}  className="w-full sm:aspect-video aspect-[9/16] block relative rounded-sm md:rounded-lg overflow-hidden">
       <source
         media="(max-width: 640px)"
         srcSet={bannerMobileImage}
@@ -28,7 +29,7 @@ const MainBannerHomePage = ({
             <Link href={"#products"} className="flex items-center justify-center gap-2 mt-6 md:mt-10 cursor-pointer hover:scale-110 transition-all ease-in duration-100">{CTA}<ArrowDownCircle className="w-4 lg:w-6" /></Link>
         </div>
       </div>
-    </picture>
+    </motion.picture>
   );
 };
 

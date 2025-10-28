@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="FA-IR" dir="rtl" data-scroll-behavior="smooth">
       <body className={`${artin.className}`}>
-        <div className=" space-y-4 p-4 w-full h-full">
+        <div className=" space-y-4 p-4 w-full h-full overflow-hidden">
           <Toaster />
           <AuthProvider>
             <Navbar logoUrl={logoUrl} siteName={siteName} />

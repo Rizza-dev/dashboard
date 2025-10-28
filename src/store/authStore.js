@@ -7,12 +7,12 @@ export const useAuthStore = create(
     (set, get) => ({
       token: null,
       user: null,
-
+      avatar: null,
       setAuth: (token, user) => set({ token, user }),
 
       clearAuth: async () => {
         const token = get().token;
-        set({ token: null, user: null });
+        set({ token: null, user: null , avatar : null});
         try {
           await api.post(
             "/auth/logout",
@@ -47,7 +47,7 @@ export const useAuthStore = create(
 
           const currentUser = get().user;
           if (JSON.stringify(currentUser) !== JSON.stringify(data.user)) {
-            set({ user: data.user, token: data.token || token });
+            set({ user: data.user, token: data.token || token , avatar : data.avatar});
           }
           return true;
         } catch (error) {

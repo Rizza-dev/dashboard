@@ -7,7 +7,6 @@ import { getSiteSettings } from "@/lib/getSiteSettings.js";
 import { ArrowLeftCircle } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-
 export default async function HomePage() {
   const settings = await getSiteSettings();
   const categoryList = await getCategories();
@@ -30,16 +29,23 @@ export default async function HomePage() {
           <p className="text-base md:text-[24px] lg:text-[32px] xl:text-[40px]">
             لوازم آشپزخانه لوکس برای هر آشپزخانه
           </p>
-          <Link href="/products" className="flex items-center justify-center gap-1 text-nowrap lg:gap-4">
-            <p className="text-base md:text-lg lg:text-2xl xl:text-3xl ">همه محصولات</p><ArrowLeftCircle className="w-4 md:w-5 lg:w-6 " />
+          <Link
+            href="/products"
+            className="flex items-center justify-center gap-1 text-nowrap lg:gap-4"
+          >
+            <p className="text-base md:text-lg lg:text-2xl xl:text-3xl ">
+              همه محصولات
+            </p>
+            <ArrowLeftCircle className="w-4 md:w-5 lg:w-6 " />
           </Link>
         </div>
-        <section id="products" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center my-6">
-          {
-            productList.slice(0, 8).map((product, index) => (
-              <ProductCard key={index} product={product} />
-            ))
-          }
+        <section
+          id="products"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center my-6"
+        >
+          {productList.slice(0, 8).map((product, index) => (
+            <ProductCard key={product._id} product={product} index={index} />
+          ))}
         </section>
       </div>
     </div>

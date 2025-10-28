@@ -7,19 +7,23 @@ import toast from "react-hot-toast";
 const page = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const getAllOrder = async () => {
-    try {
-      const res = await api.get("/orders");
-      setOrders(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      toast.error("خطا در دریافت سفارش‌ها");
-    }
-  };
 
   useEffect(() => {
-    getAllOrder();
+    const init = async () => {
+      const getAllOrder = async () => {
+        try {
+          const res = await api.get("/orders");
+          setOrders(res.data);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          toast.error("خطا در دریافت سفارش‌ها");
+        }
+      };
+
+      getAllOrder()
+    };
+    init()
   }, []);
 
   if (loading) {

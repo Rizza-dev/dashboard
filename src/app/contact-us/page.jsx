@@ -3,11 +3,9 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  MessageCircleQuestionMark,
   Send,
 } from "lucide-react";
 import Image from "next/image";
-
 export default async function ContactUsPage() {
   const setting = await getSiteSettings();
 

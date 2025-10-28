@@ -74,6 +74,7 @@ const page = () => {
       setTimer(180);
     } else {
       toast.error(data.message);
+      setLoading(false);
     }
   };
 
@@ -88,11 +89,14 @@ const page = () => {
       toast.success(data.message);
     } else {
       toast.error(data.message);
+      setLoading(false);
     }
 
     if (data.user.role === "admin") {
-      window.location.href = "/admin";
-    } else window.location.href = "/";
+     navigate.push("/admin");
+    } else if (data.user.role === "user") {
+      navigate.push("/");
+    }
 
     setLoading(false);
   };

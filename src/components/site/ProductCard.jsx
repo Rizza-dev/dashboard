@@ -5,10 +5,12 @@ import { useCartStore } from "@/store/useCartStore";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
-
-const ProductCard = ({ product }) => {
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+const ProductCard = ({ product, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once : true });
   const { user } = useAuthStore();
   const { getCartLength } = useCartStore();
   const handleAddToCart = async () => {
@@ -35,7 +37,13 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] rounded-lg overflow-hidden">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 100 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={isInView ? { duration: 0.3, delay: 0.3 * index } : {}}
+      className="w-full h-full relative aspect-[3/4] max-w-[450px] max-h-[600px] rounded-lg overflow-hidden"
+    >
       <Image
         priority
         fill
@@ -63,7 +71,7 @@ const ProductCard = ({ product }) => {
       >
         <ShoppingCart size={20} />
       </button>
-    </div>
+    </motion.div>
   );
 };
 
