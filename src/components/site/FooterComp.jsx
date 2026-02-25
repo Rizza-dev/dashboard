@@ -9,6 +9,7 @@ import {
   MessageCircle,
   Send,
   Truck,
+  UserLock,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,15 +31,19 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
     <div className="w-full h-full py-10 bg-bg-2 rounded-md px-4 sm:px-[3vw] md:px-[5vw] lg:px-[9vw] mt-10">
       <div className="w-full h-full gap-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center">
         <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] md:border-l-[0.5px] md:border-0">
-          <Link href="/rules" className="flex items-center gap-2">
+          <Link href="/terms" className="flex items-center gap-2">
             <Handshake size={20} />
             <p className="text-xl text-nowrap 2xl:text-2xl">قوانین و مقررات</p>
           </Link>
-          <Link href="/guides" className="flex items-center gap-2">
+          <Link href="/about-us" className="flex items-center gap-2">
             <Info size={20} />
             <p className="text-xl text-nowrap 2xl:text-2xl">
-              راهنمای قبل از خرید
+              درباره ما
             </p>
+          </Link>
+          <Link href="/privacy" className="flex items-center gap-2">
+            <UserLock size={20} />
+            <p className="text-xl text-nowrap 2xl:text-2xl">حریم خصوصی</p>
           </Link>
           <Link href="/profile/orders" className="flex items-center gap-2">
             <Truck size={20} />
@@ -58,12 +63,12 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
           </div>
           <div className="space-y-4">
             <div className="flex justify-start gap-8 items-center w-full">
-              <p>رضا نصیری :</p>
+              <p> نصیری :</p>
               <p>09028463423</p>
             </div>
             <div className="flex justify-start gap-8 items-center w-full">
-              <p>علی شمخایی :</p>
-              <p>09941674749</p>
+              <p> نوری :</p>
+              <p>09337931522</p>
             </div>
           </div>
         </div>

@@ -1,10 +1,5 @@
 import { getSiteSettings } from "@/lib/getSiteSettings.js";
-import {
-  Mail,
-  MapPin,
-  MessageCircle,
-  Send,
-} from "lucide-react";
+import { Barcode, Mail, MapPin, MessageCircle, Send } from "lucide-react";
 import Image from "next/image";
 export default async function ContactUsPage() {
   const setting = await getSiteSettings();
@@ -15,10 +10,9 @@ export default async function ContactUsPage() {
         <div className="relative aspect-square w-[100px]">
           <Image className="p-1" fill src={setting.logoUrl} alt="picture" />
         </div>
-        <p className="text-xl font-bold">{setting.siteName}</p>
       </div>
       <h1 className="md:text-[48px] text-3xl mt-10 text-center w-full">
-        تماس با مجموعه برلیان
+        تماس با مجموعه
       </h1>
       <p className="md:text-2xl text-lg mt-6 w-full text-center">
         از طریق راه‌های زیر می‌توانید با ما ارتباط بگیرید
@@ -29,20 +23,22 @@ export default async function ContactUsPage() {
             <Send size={20} /> <MessageCircle size={20} />
           </span>
           <p className="text-lg">
-            {setting.phoneNumber || "09028463423 | 09941674749"}
+            {setting.phoneNumber || "09337931522 | 09028463423"}
           </p>
         </div>
         <div className="flex items-center justify-between w-full h-full">
           <span>
             <Mail />{" "}
           </span>
-          <p className="text-lg">{setting.email || "Lz5w0@example.com"}</p>
+          <p className="text-lg">{setting.email || "khanezy.com"}</p>
         </div>
         <div className="flex items-center justify-between w-full h-full">
           <span>
             <MapPin />{" "}
           </span>
-          <p className="text-lg">{setting.locaion || "Tehran,Qarchack"}</p>
+          <p className="text-lg">
+            {setting.locaion || "Tehran,Qarchack,Zibashahr / 1868791204"}
+          </p>
         </div>
       </div>
     </div>

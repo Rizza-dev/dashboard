@@ -8,7 +8,7 @@ const page = () => {
   const {user} = useAuthStore();
   return (
     <div className="max-w-screen-md mx-auto min-h-[80vh] gap-[56px] h-full w-full flex flex-col items-center justify-start">
-      <motion.h1 initial={{ y : -100 , opacity : 0}} animate={{ y : 0 , opacity : 1}} transition={{duration : 0.3 }} className="text-[56px] mt-10">درباره برلیان</motion.h1>
+      <motion.h1 initial={{ y : -100 , opacity : 0}} animate={{ y : 0 , opacity : 1}} transition={{duration : 0.3 }} className="text-[56px] mt-10">درباره فروشگاه</motion.h1>
       <motion.div initial={{ x : -100 , opacity : 0}} animate={{ x : 0 , opacity : 1}} transition={{duration : 0.3 , delay : 0.1}} className="w-full h-full flex items-center justify-center gap-4 md:gap-8">
         <div className="relative aspect-[3/4] border border-strok p-2 rounded-md w-[166px] h-[215px]">
           <Image className="p-1" fill src={"/start.png"} alt="picture" />

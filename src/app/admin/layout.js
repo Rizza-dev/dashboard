@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "داشبورد ادمین",
-  description: "داشبورد ادمین پخش لوازم آشپزخانه برلیان",
+  description: "داشبورد ادمین",
   icons: "./logo.svg",
 };
 

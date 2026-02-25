@@ -17,7 +17,7 @@ export async function POST(req) {
       address,
     } = body;
 
-    const description = "پرداخت به پخش لوازم آشپزخانه برلیان";
+    const description = "پرداخت به فروشگاه لوازم آشپزخانه ";
     const merchant_id =
       process.env.ZARINPAL_MERCHANT_ID ||
       "00000000-0000-0000-0000-000000000000";

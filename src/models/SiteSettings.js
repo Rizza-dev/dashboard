@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const SiteSettingsSchema = new mongoose.Schema({
   siteName: {
     type: String,
-    default: "لوازم آشپزخانه برلیان",
+    default: "فروشگاه لوازم آشپزخانه",
   },
 
   logoUrl: {

@@ -10,8 +10,8 @@ export async function generateMetadata() {
   const settings = await getSiteSettings();
   const { logoUrl, siteName, bannerText } = settings;
   return {
-    title: siteName || "لوازم آشپزخانه برلیان",
-    description: bannerText || "شرکت پخش لوازم آشپزخانه برلیان",
+    title: siteName || "لوازم آشپزخانه",
+    description: bannerText || "شرکت پخش لوازم آشپزخانه ",
     icons: logoUrl || "./logo.svg",
   };
 }

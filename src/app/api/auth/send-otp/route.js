@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
-// import { KavenegarApi } from "kavenegar";
+// import { Kavenegar } from "kavenegar";
 
+
+var Kavenegar = require('kavenegar');
 // const api = KavenegarApi({ apikey: process.env.KAVENEGAR_API_KEY });
+const api = Kavenegar.KavenegarApi({apikey: '505034393767357A4158396B3552542F5478672F746F386C4471773950546F44416F37726F74576330694D3D'});
 
 export async function POST(req) {
   const { phone } = await req.json();
@@ -22,12 +25,14 @@ export async function POST(req) {
   user.otpExpire = otpExpire;
   await user.save();
 
-  //   ارسال درخواست به کاوه نگار
+    // ارسال درخواست به کاوه نگار
   // api.VerifyLookup(
   //   { receptor: phone, token: otp, template: "registerverify" },
   //   (response, status) => console.log(response, status)
   // );
-  console.log(`OTP for ${phone}: ${otp}`);
+
+  api.Send({ message: "خدمات پیام کوتاه کاوه نگار" , sender: "2000660110" , receptor: phone , token : otp });
+  // console.log(`OTP for ${phone}: ${otp}`);
   
 
   //   پاسخ به کلاینت
