@@ -115,7 +115,7 @@ const page = () => {
               <div className="relative  w-full max-w-20 aspect-square overflow-hidden">
                 <Image src={"/logo.svg"} fill sizes="" alt="" />
               </div>
-              <p className="text-2xl">brlliant</p>
+              <p className="text-2xl">فروشگاه لوازم آشپزخانه</p>
             </div>
             <h1 className="w-full text-start text-2xl mt-4 mb-8">
               ورود | ثبت نام

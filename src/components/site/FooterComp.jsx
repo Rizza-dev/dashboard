@@ -37,9 +37,7 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
           </Link>
           <Link href="/about-us" className="flex items-center gap-2">
             <Info size={20} />
-            <p className="text-xl text-nowrap 2xl:text-2xl">
-              درباره ما
-            </p>
+            <p className="text-xl text-nowrap 2xl:text-2xl">درباره ما</p>
           </Link>
           <Link href="/privacy" className="flex items-center gap-2">
             <UserLock size={20} />
@@ -51,10 +49,6 @@ const FooterComp = ({ logoUrl, siteName, socialLinks }) => {
           </Link>
         </div>
         <div className="w-full h-full space-y-6 border-strok pb-4 border-b-[0.5px] xl:border-l-[0.5px] md:border-0">
-          <Link href="/location" className="flex items-center gap-2">
-            <LocationEdit size={20} />
-            <p className="text-xl text-nowrap 2xl:text-2xl">آدرس فروشگاه</p>
-          </Link>
           <div className="flex items-center gap-2">
             <Headset size={20} />
             <p className="text-xl text-nowrap 2xl:text-2xl">

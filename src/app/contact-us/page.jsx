@@ -40,6 +40,7 @@ export default async function ContactUsPage() {
             {setting.locaion || "Tehran,Qarchack,Zibashahr / 1868791204"}
           </p>
         </div>
+      <p className="my-4 text-sm">صاحب امتیاز و مدیریت فروشگاه : فاطمه نوری </p>
       </div>
     </div>
   );
