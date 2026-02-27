@@ -47,7 +47,7 @@ const Navbar = () => {
       <div className="md:pl-8 flex items-center jucetify-center gap-2">
         <p className="md:text-[40px] text-2xl">{siteName}</p>
         <img
-          src={logoUrl || "/logo.svg"}
+          src={logoUrl || "/logo.png"}
           alt="logo"
           className="w-[32px]"
           width={40}

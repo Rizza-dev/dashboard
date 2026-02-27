@@ -113,7 +113,7 @@ const page = () => {
             </span>
             <div className="w-full h-full gap-2 flex flex-col items-center justify-center">
               <div className="relative  w-full max-w-20 aspect-square overflow-hidden">
-                <Image src={"/logo.svg"} fill sizes="" alt="" />
+                <Image src={"/logo.png"} fill sizes="" alt="" />
               </div>
               <p className="text-2xl">فروشگاه لوازم آشپزخانه</p>
             </div>
@@ -160,7 +160,7 @@ const page = () => {
             </span>
             <div className="w-full h-full gap-2 flex flex-col items-center justify-center">
               <div className="relative  w-full max-w-20 aspect-square overflow-hidden">
-                <Image src={"/logo.svg"} fill sizes="" alt="" />
+                <Image src={"/logo.png"} fill sizes="" alt="" />
               </div>
               <p className="text-2xl">brlliant</p>
             </div>

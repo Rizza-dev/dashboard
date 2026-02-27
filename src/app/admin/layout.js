@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 export const metadata = {
   title: "داشبورد ادمین",
   description: "داشبورد ادمین",
-  icons: "./logo.svg",
+  icons: "./logo.png",
 };
 
 export default function AdminLayout({ children }) {

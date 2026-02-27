@@ -12,7 +12,10 @@ export async function generateMetadata() {
   return {
     title: siteName || "لوازم آشپزخانه",
     description: bannerText || "شرکت پخش لوازم آشپزخانه ",
-    icons: logoUrl || "./logo.svg",
+    icons: logoUrl || "./logo.png",
+    other : {
+      enamad: "69561924",
+    }
   };
 }
 
